@@ -47,10 +47,16 @@ ICON = {
     "finger": '<circle cx="12" cy="14" r="6"/><path d="M9.5 6.5 12 3l2.5 3.5"/>',
     "face": '<circle cx="7" cy="13" r="3.5"/><circle cx="17" cy="13" r="3.5"/><path d="M10.5 13h3M3.5 13 2 9M20.5 13 22 9"/>',
     "ear": '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>',
+    "neck": '<path d="M6 3c0 6 3 9 6 9s6-3 6-9"/><circle cx="12" cy="16" r="3"/>',
+    "body": '<path d="M3 17h13l5 2v2H3zM3 17V9l5 1 3 4"/>',
+    "weird": '<path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="4"/>',
 }
+# 6項目の色(○△× と 機能なし)。カードの線と札で使う
+JUDGE = {"ok": "使える", "q": "未確認", "ng": "使えない", "none": "機能なし"}
+SHORT = {"giteki": "技適", "buy": "国内販売", "app": "アプリ", "health": "健康", "pay": "決済", "lang": "言語"}
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Lexend:wght@700&display=swap" rel="stylesheet">')
+         '<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Lexend:wght@200;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">')
 
 
 def fail(msg: str) -> None:
@@ -147,6 +153,7 @@ def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jso
 <meta property="og:type" content="{og_type}"><meta property="og:site_name" content="{E(SITE['title'])}">{og}
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="alternate" type="application/rss+xml" href="/feed.xml">
 {FONTS}<link rel="stylesheet" href="/wear.css">{ga}{ld}</head><body>
+<div class="aur" aria-hidden="true"><i></i><i></i><i></i></div>
 {header(path)}
 <main class="wrap">{body}</main>
 <footer class="site"><div class="wrap">
@@ -159,31 +166,45 @@ def header(path: str) -> str:
     cur = path.strip("/").split("/")
     on = cur[1] if len(cur) > 1 and cur[0] == "part" else ("" if path == "/" else None)
     nav = f'<a class="{"on" if on == "" else ""}" href="/">ぜんぶ</a>' + "".join(
-        f'<a class="{"on" if on == p["slug"] else ""}" href="/part/{p["slug"]}/">{E(p["name"])}' + (f'<small>{E(p["sub"])}</small>' if p["sub"] else "") + "</a>"
-        for p in PARTS)
-    band = ""
-    if path == "/":
-        icons = "".join(f'<a href="/part/{k}/"><svg viewBox="0 0 24 24">{v}</svg><b>{E(PART[k]["name"])}</b></a>' for k, v in ICON.items())
-        band = (f'<div class="hero-band"><div><span class="hb-k">WEARABLE GADGETS ONLY</span>'
-                f'<p class="hb-t">腕・指・顔・耳に<br>つけるガジェットだけ。</p></div><div class="hb-r">{icons}</div></div>')
-    # トップだけ、ロゴと「ウェアラブルガジェット専門」を h1 にする(記事ページは記事の題名が h1)
-    tag = "h1" if path == "/" else "div"
-    return (f'<header class="site"><div class="wrap"><div class="hd"><{tag} class="brand"><a class="logo" href="/"><img class="mark" src="/logo-mark.png" alt="" width="88" height="32">{E(SITE["title"])}</a>'
-            f' <span class="logo-ja">{E(SITE["title_ja"])}</span></{tag}><span class="tag">{E(SITE["tagline"])}</span></div>'
-            f'{band}<nav class="parts">{nav}</nav></div></header>')
+        f'<a class="{"on" if on == p["slug"] else ""}" href="/part/{p["slug"]}/">{E(p["name"])}</a>' for p in PARTS)
+    return (f'<header class="site"><div class="wrap hd"><a class="logo" href="/"><img class="mark" src="/logo-mark.png" alt="" width="61" height="22">'
+            f'{E(SITE["title"])}<small>{E(SITE["title_ja"])}</small></a><nav>{nav}</nav></div></header>')
 
 
-def card(p: dict) -> str:
-    img = f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}" loading="lazy" referrerpolicy="no-referrer">' if p.get("thumbnail") else (
-        f'<svg class="noimg" viewBox="0 0 24 24">{ICON[p["part"]]}</svg>' if p["part"] in ICON else "")
-    return (f'<a class="card" href="/p/{p["slug"]}/"><div class="ph"><span class="part">{E(PART[p["part"]]["name"])}</span>{img}</div>'
-            f'<div class="cb"><h3>{E(p["title"])}</h3><p class="d">{p["date"]}</p>{badges(p)}</div></a>')
+def meter(p: dict) -> str:
+    return '<div class="meter" aria-hidden="true">' + "".join(
+        f'<i class="{(p["jp"].get(k) or {}).get("mark", "none")}"></i>' for k, _ in JP_ROWS) + "</div>"
 
 
-def grid(posts: list[dict]) -> str:
+def chips(p: dict) -> str:
+    out = []
+    for k, _ in JP_ROWS:
+        mk = (p["jp"].get(k) or {}).get("mark", "none")
+        out.append(f'<span class="chip {mk}">{SHORT[k]} {JUDGE[mk]}</span>')
+    return '<div class="chips">' + "".join(out) + "</div>"
+
+
+def card(p: dict, feat: bool = False) -> str:
+    img = (f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{"" if feat else " loading=\"lazy\""} referrerpolicy="no-referrer">'
+           if p.get("thumbnail") else f'<svg class="noimg" viewBox="0 0 24 24">{ICON.get(p["part"], "")}</svg>')
+    st = "japan" if p["status"] == "japan" else "away"
+    judge = chips(p) if feat else meter(p)
+    tag = "h2" if feat else "h3"
+    return (f'<a class="card{" feat" if feat else ""}" href="/p/{p["slug"]}/">' + ('<span class="new">NEW</span>' if feat else "") +
+            f'<div class="im">{img}</div><div class="tx"><div class="top"><span class="mono">{E(PART[p["part"]]["name"])} · {p["date"][5:].replace("-", ".")}</span>'
+            f'<span class="st {st}">{E(STATUS[p["status"]])}</span></div><{tag}>{E(p["title"])}</{tag}>{judge}</div></a>')
+
+
+def grid(posts: list[dict], feature_first: bool = False) -> str:
     if not posts:
         return '<p class="empty">まだ記事がありません。</p>'
-    return '<div class="grid">' + "".join(card(p) for p in posts) + "</div>"
+    return '<div class="grid">' + "".join(card(p, feature_first and i == 0) for i, p in enumerate(posts)) + "</div>"
+
+
+def parts_links() -> str:
+    return '<div class="parts">' + "".join(
+        f'<a href="/part/{p["slug"]}/"><svg viewBox="0 0 24 24">{ICON.get(p["slug"], "")}</svg>{E(p["name"])}' + (f'<span>{E(p["sub"])}</span>' if p["sub"] else "") + "</a>"
+        for p in PARTS) + "</div>"
 
 
 def article(p: dict) -> str:
@@ -193,10 +214,11 @@ def article(p: dict) -> str:
         hero = (f'<div class="hero"><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}" referrerpolicy="no-referrer"></div>'
                 f'<div class="credit">画像: {E(p.get("thumbnail_credit", ""))}</div>')
     rows = "".join(
-        f'<tr><td>{label}</td><td><span class="mk {p["jp"][k]["mark"]}">{MARK[p["jp"][k]["mark"]]}</span>{E(str(p["jp"][k]["text"]))}</td></tr>'
+        f'<tr><td>{label}</td><td><span class="mk {p["jp"][k]["mark"]}">{JUDGE[p["jp"][k]["mark"]]}</span>{E(str(p["jp"][k]["text"]))}</td></tr>'
         for k, label in JP_ROWS if p["jp"].get(k))
     verdict = f'<div class="verdict">結論: {E(p["jp"]["verdict"])}</div>' if p["jp"].get("verdict") else ""
-    jp = f'<div class="jp"><div class="jp-h">日本で使える？<span>{p["modified"]} 時点</span></div><table>{rows}</table>{verdict}</div>'
+    jp = (f'<div class="jp"><div class="jp-h"><b>日本で使える？</b><span class="mono">{p["modified"].replace("-", ".")} 時点</span></div>'
+          f'{meter(p)}<table>{rows}</table>{verdict}</div>')
     specs = ""
     sp = list(p.get("specs") or [])
     if p.get("price"):
@@ -218,7 +240,7 @@ def article(p: dict) -> str:
     src = '<h2>出典</h2><ul class="src">' + "".join(
         f'<li><a href="{E(s["url"])}" target="_blank" rel="noopener">{E(s["title"])}</a>({E(s.get("publisher", ""))})</li>' for s in p["sources"]) + "</ul>"
     return (f'<article><div class="crumb"><a href="/">ホーム</a> › <a href="/part/{part["slug"]}/">{E(part["name"])}</a></div>'
-            f'<h1>{E(p["title"])}</h1><p class="meta">{p["date"]} 公開' + (f'・{p["modified"]} 更新' if p["modified"] != p["date"] else "") +
+            f'<h1>{E(p["title"])}</h1><p class="meta mono">{p["date"].replace("-", ".")} 公開' + (f'・{p["modified"]} 更新' if p["modified"] != p["date"] else "") +
             f'</p>{hero}{jp}<div class="body">{p["body_html"]}</div>{specs}{buy}{alts}{ad}{src}</article>')
 
 
@@ -255,13 +277,16 @@ def main() -> None:
         shutil.copy(ROOT / "assets" / name, OUT / name)
     (OUT / "CNAME").write_text(urllib.parse.urlparse(BASE).netloc + "\n", encoding="utf-8")
 
-    home = '<h2 class="sec">新着</h2>' + grid(posts)
+    home = ('<section class="intro"><h1><span class="eb mono">Wearable Mania · ウェアラブルガジェット専門</span>wear<b>able</b> future.</h1>'
+            '<p>腕・指・顔・耳につける新しいガジェットを1つずつ。どれも<b>技適</b>と<b>日本で使えない機能</b>まで確かめています。</p></section>'
+            + grid(posts, feature_first=True) + '<h2 class="sec">部位で<b>探す</b></h2>' + parts_links())
     write("/", page(SITE["title"], home, desc=SITE["description"], path="/",
                     jsonld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE["title"], "url": BASE + "/"}))
     for pt in PARTS:
         sub = [p for p in posts if p["part"] == pt["slug"]]
         name = pt["name"] + (f"({pt['sub']})" if pt["sub"] else "")
-        body = f'<h2 class="sec">{E(name)}につけるガジェット</h2>' + grid(sub)
+        body = (f'<section class="intro"><h1 class="small">{E(pt["name"])}<b>につける</b></h1><p>{E(pt["sub"] or pt["name"])}のウェアラブル。技適と日本で使えない機能まで確かめています。</p></section>'
+                + grid(sub) + '<h2 class="sec">ほかの部位</h2>' + parts_links())
         write(f"/part/{pt['slug']}/", page(f"{name}のウェアラブル", body, desc=f"{name}につけるウェアラブルガジェットの新製品。技適と日本で使えない機能まで。", path=f"/part/{pt['slug']}/"))
     for p in posts:
         path = f"/p/{p['slug']}/"

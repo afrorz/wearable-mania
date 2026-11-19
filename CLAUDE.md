@@ -19,12 +19,14 @@ content/p/*.md(1記事1製品) → python scripts/build.py → public/ → git p
 - もしもの GT・充電沼の a_id を貼らない。このサイトを新しく登録して、提携が通ったら `config/site.yaml` の `affiliate:` に入れる
 - 日本語版 GT・充電沼のファイルは変更しない(GT の `scripts/giteki.py` は読む・動かすだけ)
 
-## 見た目
+## 見た目(2026-11-19 「ガラス」に作り直し)
 
-- 白地、文字 `#16181d`、差し色の緑 `#0f7d70`。色は `assets/wear.css` の先頭
-- ロゴは W と M に緑の帯が編み込まれたマーク(11/19 本人が Gemini で作った `assets/brand/wm-mark-gemini.jpg`)＋ Lexend 700 の文字(11/19 本人が10案から選んだ)。マーク・ファビコン・共有用の画像は `python scripts/make_brand_images.py` で作り直せる、本文は Noto Sans JP。トップの黒い帯に「WEARABLE GADGETS ONLY」と部位の線の絵(build.py の `ICON`)
-- 記事の上のほうに、黒い枠の「日本で使える？」の欄(○△×と結論の1文)
-- スマホ(375px)で横にはみ出さないこと
+- 本人が3つの方向(暗い地の計器風・ガラス・巨大文字が流れるモーション)から**ガラス**を選んだ。明るい地 `#EEF3F6` に緑・青・薄紫の光がゆっくり流れ、ヘッダー・カード・「日本で使える？」の欄はすりガラスの板。色は `assets/wear.css` の先頭
+- **トップの大きな面は置かない**(本人「スクロールするとすぐに楽しそうなガジェットがたくさん並んでるほうが直帰率が下がる」)。頭は1行の「wearable future.」の帯だけで、すぐ一覧。最新の1本だけ2列×2段で6項目の札、ほかは6本の色の線
+- 6項目の色: 緑=使える・黄=未確認・赤=使えない・灰=機能なし
+- ロゴは W と M に緑の帯が編み込まれたマーク(本人が Gemini で作った `assets/brand/wm-mark-gemini.jpg`)＋ Lexend の文字(本人が10案から9番を選んだ)。マーク・ファビコン・共有用の画像は `python scripts/make_brand_images.py` で作り直せる
+- 書体: 英字 Lexend(200 と 800 を混ぜる)、本文 Noto Sans JP、ラベル JetBrains Mono
+- スマホ(375px)で横にはみ出さないこと。見本は `mock/`(git には入れない)
 
 ## 公開
 
