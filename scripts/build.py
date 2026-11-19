@@ -65,6 +65,22 @@ def fail(msg: str) -> None:
     sys.exit(1)
 
 
+def figures(body: str) -> str:
+    """本文の写真 ![説明](URL "出典") を、説明と出典つきの枠にする。写真はメーカー公式の画像だけ(ホットリンク)。"""
+    def one(m: re.Match) -> str:
+        tag = m.group(1)
+        alt = re.search(r'alt="([^"]*)"', tag)
+        src = re.search(r'src="([^"]*)"', tag)
+        title = re.search(r'title="([^"]*)"', tag)
+        if not src:
+            return m.group(0)
+        cap = alt.group(1) if alt else ""
+        cr = f'<span class="fcredit">画像: {title.group(1)}</span>' if title else ""
+        return (f'<figure class="shot"><img src="{src.group(1)}" alt="{cap}" loading="lazy" referrerpolicy="no-referrer">'
+                f'<figcaption>{cap}{cr}</figcaption></figure>')
+    return re.sub(r"<p>(<img [^>]+>)</p>", one, body)
+
+
 def load_posts() -> list[dict]:
     posts = []
     for f in sorted((ROOT / "content" / "p").glob("*.md")):
@@ -89,11 +105,11 @@ def load_posts() -> list[dict]:
                 fail(f"{f.name}: jp.{k}.mark は ok/q/ng/none のどれか")
         if fm["jp"]["giteki"]["mark"] == "ng":
             fail(f"{f.name}: 技適は ng にしない(見つからなければ q)")
-        if re.search(r"[!！]", (fm["title"] + m.group(2)).replace("Yahoo!", "")):
+        if re.search(r"[!！]", (fm["title"] + m.group(2)).replace("Yahoo!", "").replace("![", "[")):
             fail(f"{f.name}: 感嘆符を使っている")
         fm["date"] = str(fm["date"])
         fm["modified"] = str(fm.get("modified") or fm["date"])
-        fm["body_html"] = markdown.markdown(m.group(2), extensions=["tables"])
+        fm["body_html"] = figures(markdown.markdown(m.group(2), extensions=["tables"]))
         posts.append(fm)
     slugs = [p["slug"] for p in posts]
     if len(slugs) != len(set(slugs)):
