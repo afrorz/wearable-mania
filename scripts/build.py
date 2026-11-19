@@ -159,6 +159,7 @@ def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jso
 <footer class="site"><div class="wrap">
 <p><a href="/about/">このサイトの確かめ方</a><a href="/privacy/">プライバシーと広告</a><a href="https://gadgetterminal.com/">Gadget Terminal</a><a href="https://charge.gadgetterminal.com/">充電沼</a></p>
 <p>© {years} {E(SITE['author'])}</p></div></footer>
+{CLIP_JS}
 </body></html>"""
 
 
@@ -169,6 +170,23 @@ def header(path: str) -> str:
         f'<a class="{"on" if on == p["slug"] else ""}" href="/part/{p["slug"]}/">{E(p["name"])}</a>' for p in PARTS)
     return (f'<header class="site"><div class="wrap hd"><a class="logo" href="/"><img class="mark" src="/logo-mark.png" alt="" width="61" height="22">'
             f'{E(SITE["title"])}<small>{E(SITE["title_ja"])}</small></a><nav>{nav}</nav></div></header>')
+
+
+# 動く映像(メーカー公式 YouTube の3秒・音なし。GT と同じ決まり、2026-11-19 本人「GT のように動く画像に」)。
+# 画面に入ったときだけ読み込んで再生し、外れたら止める。動きを減らす設定の人には止めた絵だけ出す
+CLIP_JS = """<script>(function(){var vs=document.querySelectorAll('video[data-clip]');if(!vs.length)return;
+var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(calm)return;
+function load(v){if(!v.src){v.src=v.dataset.clip;}}
+if(!('IntersectionObserver' in window)){vs.forEach(function(v){load(v);v.play();});return;}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+if(e.isIntersecting){load(v);var r=v.play();if(r&&r.catch)r.catch(function(){});}else{v.pause();}});},{rootMargin:'200px 0px'});
+vs.forEach(function(v){io.observe(v);});})();</script>"""
+
+
+def clip_tag(p: dict, cls: str = "") -> str:
+    c = p["clip"]
+    return (f'<video class="clip {cls}" muted loop playsinline preload="none" poster="/clips/{E(c["poster"])}" '
+            f'data-clip="/clips/{E(c["file"])}" aria-label="{E(p.get("model") or p["title"])}"></video>')
 
 
 def meter(p: dict) -> str:
@@ -187,6 +205,8 @@ def chips(p: dict) -> str:
 def card(p: dict, feat: bool = False) -> str:
     img = (f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{"" if feat else " loading=\"lazy\""} referrerpolicy="no-referrer">'
            if p.get("thumbnail") else f'<svg class="noimg" viewBox="0 0 24 24">{ICON.get(p["part"], "")}</svg>')
+    if feat and p.get("clip"):
+        img = clip_tag(p) + f'<span class="vcredit">映像: {E(p["clip"]["credit"])}</span>'
     st = "japan" if p["status"] == "japan" else "away"
     judge = chips(p) if feat else meter(p)
     tag = "h2" if feat else "h3"
@@ -210,7 +230,11 @@ def parts_links() -> str:
 def article(p: dict) -> str:
     part = PART[p["part"]]
     hero = ""
-    if p.get("thumbnail"):
+    if p.get("clip"):
+        c = p["clip"]
+        hero = (f'<div class="hero has-clip">{clip_tag(p)}</div>'
+                f'<div class="credit">映像: <a href="{E(c["source"])}" target="_blank" rel="nofollow noopener">{E(c["credit"])}</a></div>')
+    elif p.get("thumbnail"):
         hero = (f'<div class="hero"><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}" referrerpolicy="no-referrer"></div>'
                 f'<div class="credit">画像: {E(p.get("thumbnail_credit", ""))}</div>')
     rows = "".join(
@@ -275,6 +299,8 @@ def main() -> None:
     shutil.copy(ROOT / "assets" / "wear.css", OUT / "wear.css")
     for name in ("logo-mark.png", "favicon.ico", "favicon-32.png", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "ogp-1200x630.png"):
         shutil.copy(ROOT / "assets" / name, OUT / name)
+    if (ROOT / "content" / "clips").exists():
+        shutil.copytree(ROOT / "content" / "clips", OUT / "clips")
     (OUT / "CNAME").write_text(urllib.parse.urlparse(BASE).netloc + "\n", encoding="utf-8")
 
     home = ('<section class="intro"><h1><span class="eb mono">Wearable Mania · ウェアラブルガジェット専門</span>wear<b>able</b> future.</h1>'

@@ -140,3 +140,12 @@ footer.site a{color:var(--sub);margin-right:14px}
   .spec th{padding-bottom:0;border-bottom:0}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* 動く映像 */
+video.clip{display:block;width:100%;height:100%;object-fit:cover;background:#fff}
+.card.feat .im video.clip{position:absolute;inset:0}
+.card.feat .im{position:relative}
+.hero.has-clip{aspect-ratio:16/9}
+.hero.has-clip video.clip{border-radius:0}
+.credit a{color:var(--sub)}
+.vcredit{position:absolute;right:10px;bottom:8px;font-size:10px;color:#fff;background:rgba(14,27,36,.45);padding:1px 8px;border-radius:999px}

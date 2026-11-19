@@ -7,6 +7,11 @@ maker: INMO
 model: "INMO GO3(IMG301)"
 summary: "相手の言葉を字幕でレンズに出し、電池は5秒で差し替え。約58gのAIグラスが国内でも売られている"
 thumbnail: https://www.inmo.com/cdn/shop/files/01_220b25ec-55a1-4b56-aff3-92dc9b9dc1f3.png
+clip:
+  file: inmo-go3-ai-smart-glasses/top.mp4
+  poster: inmo-go3-ai-smart-glasses/top.jpg
+  credit: "INMO XR 公式 YouTube"
+  source: "https://www.youtube.com/watch?v=edBbpch2cmk"
 thumbnail_credit: INMO 公式サイト
 price: "99,800円(税込、国内の希望小売価格、掲載時点)"
 status: japan
