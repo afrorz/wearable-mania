@@ -62,7 +62,7 @@ def fail(msg: str) -> None:
 def load_posts() -> list[dict]:
     posts = []
     for f in sorted((ROOT / "content" / "p").glob("*.md")):
-        txt = f.read_text(encoding="utf-8")
+        txt = f.read_text(encoding="utf-8").replace("\r\n", "\n")
         m = re.match(r"^---\n(.*?)\n---\n(.*)$", txt, re.S)
         if not m:
             fail(f"{f.name}: front matter がない")
@@ -226,7 +226,7 @@ def write(path: str, text: str) -> None:
 
 
 def static_page(name: str, path: str) -> None:
-    txt = (ROOT / "content" / "pages" / f"{name}.md").read_text(encoding="utf-8")
+    txt = (ROOT / "content" / "pages" / f"{name}.md").read_text(encoding="utf-8").replace("\r\n", "\n")
     m = re.match(r"^---\n(.*?)\n---\n(.*)$", txt, re.S)
     fm, body = yaml.safe_load(m.group(1)), m.group(2)
     ads = ("このサイトの買うボタンの一部は、もしもアフィリエイトを通じた紹介リンクです(楽天市場・Amazon・Yahoo!ショッピング)。リンクから買い物があると、運営者に紹介料が入ります。紹介料の有無で、載せる製品や書き方は変えていません。"
