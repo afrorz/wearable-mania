@@ -128,7 +128,7 @@ def badges(p: dict) -> str:
 
 def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jsonld: dict | None = None, og_type="website") -> str:
     url = BASE + path
-    full = title if title == SITE["title"] else f"{title} | {SITE['title']}"
+    full = f"{SITE['title']} | {SITE['title_ja']}" if title == SITE["title"] else f"{title} | {SITE['title']}"
     ga = ""
     if SITE.get("analytics_id"):
         gid = SITE["analytics_id"]
@@ -165,8 +165,10 @@ def header(path: str) -> str:
         icons = "".join(f'<a href="/part/{k}/"><svg viewBox="0 0 24 24">{v}</svg><b>{E(PART[k]["name"])}</b></a>' for k, v in ICON.items())
         band = (f'<div class="hero-band"><div><span class="hb-k">WEARABLE GADGETS ONLY</span>'
                 f'<p class="hb-t">腕・指・顔・耳に<br>つけるガジェットだけ。</p></div><div class="hb-r">{icons}</div></div>')
-    return (f'<header class="site"><div class="wrap"><div class="hd"><a class="logo" href="/">{E(SITE["title"])}</a>'
-            f'<span class="logo-ja">{E(SITE["title_ja"])}</span><span class="tag">{E(SITE["tagline"])}</span></div>'
+    # トップだけ、ロゴと「ウェアラブルガジェット専門」を h1 にする(記事ページは記事の題名が h1)
+    tag = "h1" if path == "/" else "div"
+    return (f'<header class="site"><div class="wrap"><div class="hd"><{tag} class="brand"><a class="logo" href="/">{E(SITE["title"])}</a>'
+            f' <span class="logo-ja">{E(SITE["title_ja"])}</span></{tag}><span class="tag">{E(SITE["tagline"])}</span></div>'
             f'{band}<nav class="parts">{nav}</nav></div></header>')
 
 
