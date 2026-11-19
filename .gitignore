@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+# ビルド結果。GitHub Actions が毎回作り直す
+public/
+.claude/
+mock/

@@ -1,0 +1,36 @@
+site:
+  title: Wearable Mania          # 2026-11-19 本人決定。カタカナのロゴは「ダサい」で英字に
+  title_ja: ウェアラブルガジェット専門
+  tagline: 技適と「日本で使えない機能」まで書きます。
+  description: 腕・指・顔・耳につけるウェアラブルガジェットの新製品を1つずつ紹介するサイト。どの製品も、技適と日本で使えない機能(アプリ・健康の機能・決済・言語)まで確かめています。
+  base_url: https://wearable.gadgetterminal.com
+  author: Star Platinum LLC
+  contact_email: info@gadgetterminal.com
+  copyright_from: 2026
+  # GA4。本人がプロパティを新しく作って入れる(GT・充電沼の ID を流用しない)。空ならタグも説明も出ない
+  analytics_id: ""
+
+# 紹介リンク(もしも)。{url} に楽天・Amazon・Yahoo の検索ページの URL(エンコード済み)が入る。
+# もしもでこのサイトを新しく登録し、提携が通るまで空のまま(GT・充電沼の a_id を貼らない)。
+# 空のあいだは普通の検索ページへのリンクを出し、「広告を含みます」も出さない。
+affiliate:
+  rakuten: ""
+  amazon: ""
+  yahoo: ""
+
+# 部位。並び順がそのまま表示の順
+parts:
+  - {slug: wrist,  name: 腕,   sub: 時計・バンド}
+  - {slug: finger, name: 指,   sub: リング}
+  - {slug: face,   name: 顔,   sub: メガネ}
+  - {slug: ear,    name: 耳,   sub: イヤホン}
+  - {slug: neck,   name: 首・胸, sub: ""}
+  - {slug: body,   name: 服・靴, sub: ""}
+  - {slug: weird,  name: 変なところ, sub: ""}
+
+status:
+  china-only: 中国だけ
+  overseas: 海外だけ
+  import: 輸入で買える
+  japan: 国内で買える
+  crowdfunding: クラファン
