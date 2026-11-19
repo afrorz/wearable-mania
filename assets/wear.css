@@ -89,5 +89,5 @@ footer.site a{color:var(--sub);margin-right:14px}
 }
 .ph .noimg{position:absolute;inset:0;margin:auto;width:56px;height:56px;stroke:#b9c0c8;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 .brand{margin:0;font-size:inherit;font-weight:inherit;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.logo{display:inline-flex;align-items:center;gap:10px}.logo .mark{height:32px;width:auto}
-@media(max-width:600px){.logo .mark{height:26px}}
+.logo{display:inline-flex;align-items:center;gap:8px}.logo .mark{height:22px;width:auto}
+@media(max-width:600px){.logo .mark{height:18px}}
