@@ -136,7 +136,8 @@ def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jso
               f"<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{gid}');"
               "document.addEventListener('click',e=>{const a=e.target.closest('[data-store]');if(a)gtag('event','buy_click',{store:a.dataset.store,page:location.pathname})});</script>")
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
-    og = f'<meta property="og:image" content="{E(og_image)}"><meta name="twitter:card" content="summary_large_image">' if og_image else '<meta name="twitter:card" content="summary">'
+    og_image = og_image or f"{BASE}/ogp-1200x630.png"  # 写真の無いページは共有用の画像(make_brand_images.py)
+    og = f'<meta property="og:image" content="{E(og_image)}"><meta name="twitter:card" content="summary_large_image">'
     year = dt.date.today().year
     years = f"{SITE['copyright_from']}" if year == SITE["copyright_from"] else f"{SITE['copyright_from']}–{year}"
     return f"""<!doctype html>
@@ -144,7 +145,7 @@ def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jso
 <title>{E(full)}</title><meta name="description" content="{E(desc)}"><link rel="canonical" href="{E(url)}">
 <meta property="og:title" content="{E(full)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{E(url)}">
 <meta property="og:type" content="{og_type}"><meta property="og:site_name" content="{E(SITE['title'])}">{og}
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" href="/feed.xml">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="alternate" type="application/rss+xml" href="/feed.xml">
 {FONTS}<link rel="stylesheet" href="/wear.css">{ga}{ld}</head><body>
 {header(path)}
 <main class="wrap">{body}</main>
@@ -167,7 +168,7 @@ def header(path: str) -> str:
                 f'<p class="hb-t">腕・指・顔・耳に<br>つけるガジェットだけ。</p></div><div class="hb-r">{icons}</div></div>')
     # トップだけ、ロゴと「ウェアラブルガジェット専門」を h1 にする(記事ページは記事の題名が h1)
     tag = "h1" if path == "/" else "div"
-    return (f'<header class="site"><div class="wrap"><div class="hd"><{tag} class="brand"><a class="logo" href="/">{E(SITE["title"])}</a>'
+    return (f'<header class="site"><div class="wrap"><div class="hd"><{tag} class="brand"><a class="logo" href="/"><img class="mark" src="/logo-mark.png" alt="" width="88" height="32">{E(SITE["title"])}</a>'
             f' <span class="logo-ja">{E(SITE["title_ja"])}</span></{tag}><span class="tag">{E(SITE["tagline"])}</span></div>'
             f'{band}<nav class="parts">{nav}</nav></div></header>')
 
@@ -250,7 +251,8 @@ def main() -> None:
         shutil.rmtree(OUT)
     OUT.mkdir()
     shutil.copy(ROOT / "assets" / "wear.css", OUT / "wear.css")
-    shutil.copy(ROOT / "assets" / "favicon.svg", OUT / "favicon.svg")
+    for name in ("logo-mark.png", "favicon.ico", "favicon-32.png", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png", "ogp-1200x630.png"):
+        shutil.copy(ROOT / "assets" / name, OUT / name)
     (OUT / "CNAME").write_text(urllib.parse.urlparse(BASE).netloc + "\n", encoding="utf-8")
 
     home = '<h2 class="sec">新着</h2>' + grid(posts)
