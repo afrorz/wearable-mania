@@ -22,7 +22,7 @@ content/p/*.md(1記事1製品) → python scripts/build.py → public/ → git p
 ## 見た目
 
 - 白地、文字 `#16181d`、差し色の緑 `#0f7d70`。色は `assets/wear.css` の先頭
-- ロゴは Space Grotesk 700、本文は Noto Sans JP。トップの黒い帯に「WEARABLE GADGETS ONLY」と部位の線の絵(build.py の `ICON`)
+- ロゴは Lexend 700(11/19 本人が10案から選んだ)、本文は Noto Sans JP。トップの黒い帯に「WEARABLE GADGETS ONLY」と部位の線の絵(build.py の `ICON`)
 - 記事の上のほうに、黒い枠の「日本で使える？」の欄(○△×と結論の1文)
 - スマホ(375px)で横にはみ出さないこと
 
