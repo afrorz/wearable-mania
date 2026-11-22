@@ -39,6 +39,8 @@ alternatives:
   - name: "Rokid スマートAIグラス"
     why: "同じく字幕翻訳とナビをレンズに出すAIグラスで、Amazon で国内向けに売られている"
     query: "Rokid スマートAIグラス"
+    image: https://cdn.shopify.com/s/files/1/0628/5636/4211/files/001_8c854eae-1297-4a66-a5bc-808f5e127dfc.jpg
+    image_credit: Rokid 公式サイト
 sources:
   - title: "世界No.1* AIスマートグラスブランド、日本初上陸 毎日使えるスマートグラス「INMO GO3」、7月30日(木)発売"
     url: "https://prtimes.jp/main/html/rd/p/000000003.000185885.html"

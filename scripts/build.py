@@ -76,8 +76,14 @@ def figures(body: str) -> str:
             return m.group(0)
         cap = alt.group(1) if alt else ""
         cr = f'<span class="fcredit">画像: {title.group(1)}</span>' if title else ""
-        return (f'<figure class="shot"><img src="{src.group(1)}" alt="{cap}" loading="lazy" referrerpolicy="no-referrer">'
-                f'<figcaption>{cap}{cr}</figcaption></figure>')
+        url, _, frag = src.group(1).partition("#crop=")
+        if frag:  # ![説明](URL#crop=左,上,右,下,画像の幅 "出典") → その範囲だけを見せる(画像は加工しない)
+            c = [int(v) for v in frag.split(",")]
+            img = (f'<div class="cropbox" style="aspect-ratio:{c[2] - c[0]}/{c[3] - c[1]}"><img src="{url}" alt="{cap}"'
+                   f'{crop_style(c)} loading="lazy" referrerpolicy="no-referrer"></div>')
+        else:
+            img = f'<img src="{url}" alt="{cap}" loading="lazy" referrerpolicy="no-referrer">'
+        return f'<figure class="shot">{img}<figcaption>{cap}{cr}</figcaption></figure>'
     return re.sub(r"<p>(<img [^>]+>)</p>", one, body)
 
 
@@ -224,14 +230,30 @@ def focus(p: dict) -> str:
     c = p.get("thumbnail_crop")
     if not c:
         return ""
+    return crop_style(c)
+
+
+def crop_style(c: list) -> str:
     x0, y0, x1, y1, w = c
-    return (f' class="crop" style="--x0:{x0};--y0:{y0};--cw:{x1 - x0};--ch:{y1 - y0};--w:{w}"')
+    return f' class="crop" style="--x0:{x0};--y0:{y0};--cw:{x1 - x0};--ch:{y1 - y0};--w:{w}"'
 
 
 def crop_box(p: dict) -> str:
     """記事の頭の枠の縦横比を、切り出す範囲の縦横比に合わせる"""
     c = p.get("thumbnail_crop")
     return f' class="cropbox" style="aspect-ratio:{c[2] - c[0]}/{c[3] - c[1]}"' if c else ""
+
+
+def alt_image(a: dict) -> str:
+    """代わりの製品の画像(メーカー公式の画像をホットリンク)。image_credit に出典"""
+    if not a.get("image"):
+        return ""
+    c = a.get("image_crop")  # [左, 上, 右, 下, 画像の幅]。製品が小さく写っているときにその範囲だけを見せる
+    img = f'<img src="{E(a["image"])}" alt="{E(a["name"])}"{crop_style(c) if c else ""} loading="lazy" referrerpolicy="no-referrer">'
+    if c:
+        img = f'<div class="cropbox">{img}</div>'
+    return (f'<div class="aim">{img}'
+            f'<span>{E(a.get("image_credit", ""))}</span></div>')
 
 
 def card(p: dict, feat: bool = False) -> str:
@@ -288,7 +310,8 @@ def article(p: dict) -> str:
     alts = ""
     if p.get("alternatives"):
         alts = "<h2>日本で買える代わり</h2>" + "".join(
-            f'<div class="alt"><b>{E(a["name"])}</b><p>{E(a.get("why", ""))}</p>' + (buy_buttons(a["query"]) if a.get("query") else "") + "</div>"
+            f'<div class="alt{" has-im" if a.get("image") else ""}">' + alt_image(a) +
+            f'<div class="at"><b>{E(a["name"])}</b><p>{E(a.get("why", ""))}</p>' + (buy_buttons(a["query"]) if a.get("query") else "") + "</div></div>"
             for a in p["alternatives"])
     ad = '<p class="note">このページには広告(紹介リンク)を含みます。</p>' if (buy or alts) and has_aff() else ""
     if buy or alts:

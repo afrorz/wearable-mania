@@ -35,9 +35,12 @@ alternatives:
   - name: "SOXAI RING 2"
     why: "国内のSOXAIが開発・販売する睡眠管理リング。月額なしで家電量販店でも買える"
     query: "SOXAI RING 2"
-  - name: "Oura Ring 4"
-    why: "睡眠・心拍・体温を測る定番のスマートリング。2025年7月から国内で正規販売"
-    query: "Oura Ring 4"
+    image: https://soxai.co.jp/cdn/shop/files/lp2-s2-1.png
+    image_crop: [463, 482, 743, 762, 1222]
+    image_credit: SOXAI 公式サイト
+  - name: "Oura Ring 5"
+    why: "睡眠・心拍・体温を測る定番のスマートリングの最新型。日本の公式ストアで49,800円から(掲載時点)"
+    query: "Oura Ring 5"
 sources:
   - title: "CRW-H001M-8 製品ページ"
     url: "https://www.casio.com.cn/watches/casio/product.CRW-H001M-8/"
