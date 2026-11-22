@@ -269,9 +269,18 @@ def card(p: dict, feat: bool = False) -> str:
     st = "japan" if p["status"] == "japan" else "away"
     judge = chips(p) if feat else meter(p)
     tag = "h2" if feat else "h3"
-    return (f'<a class="card{" feat" if feat else ""}" href="/p/{p["slug"]}/">' + ('<span class="new">NEW</span>' if feat else "") +
+    return (f'<a class="card{" feat" if feat else ""}" href="/p/{p["slug"]}/">' + ('<span class="new">NEW</span>' if feat and not p.get("pinned") else "") +
             f'<div class="im">{img}</div><div class="tx"><div class="top"><span class="mono">{E(PART[p["part"]]["name"])} · {p["date"][5:].replace("-", ".")}</span>'
             f'<span class="st {st}">{E(STATUS[p["status"]])}</span></div><{tag}>{E(p["title"])}</{tag}>{judge}</div></a>')
+
+
+def home_order(posts: list[dict]) -> list[dict]:
+    """site.yaml の feature に書いた記事をトップの先頭(一番大きいカード)に出す。ほかは新しい順のまま"""
+    pin = SITE.get("feature") or ""
+    first = [dict(p, pinned=True) for p in posts if p["slug"] == pin and p is not posts[0]]  # 最新でなければ NEW の札を出さない
+    if not first:
+        return posts
+    return first + [p for p in posts if p["slug"] != pin]
 
 
 def grid(posts: list[dict], feature_first: bool = False) -> str:
@@ -365,7 +374,7 @@ def main() -> None:
 
     home = ('<section class="intro"><h1><span class="eb mono">Wearable Mania · ウェアラブルガジェット専門</span>wear<b>able</b> future.</h1>'
             '<p>腕・指・顔・耳につける新しいガジェットを1つずつ。どれも<b>技適</b>と<b>日本で使えない機能</b>まで確かめています。</p></section>'
-            + grid(posts, feature_first=True) + '<h2 class="sec">部位で<b>探す</b></h2>' + parts_links())
+            + grid(home_order(posts), feature_first=True) + '<h2 class="sec">部位で<b>探す</b></h2>' + parts_links())
     write("/", page(SITE["title"], home, desc=SITE["description"], path="/",
                     jsonld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE["title"], "url": BASE + "/"}))
     for pt in PARTS:
