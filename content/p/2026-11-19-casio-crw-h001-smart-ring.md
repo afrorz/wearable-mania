@@ -42,6 +42,9 @@ alternatives:
   - name: "Oura Ring 5"
     why: "睡眠・心拍・体温を測る定番のスマートリングの最新型。日本の公式ストアで49,800円から(掲載時点)"
     query: "Oura Ring 5"
+    image: "https://ourahealth.imgix.net/cooper-pdp/or5-silver-alt.png?ixlib=js-3.8.0&auto=format&fit=max&fm=png&q=70&w=640&s=c1abb1ce6418079507b352bab9ce96da"
+    image_crop: [110, 65, 530, 485, 640]
+    image_credit: Oura 公式サイト(日本)
 sources:
   - title: "CRW-H001M-8 製品ページ"
     url: "https://www.casio.com.cn/watches/casio/product.CRW-H001M-8/"
