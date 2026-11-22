@@ -259,6 +259,11 @@ def alt_image(a: dict) -> str:
 def card(p: dict, feat: bool = False) -> str:
     img = (f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)}{"" if feat else " loading=\"lazy\""} referrerpolicy="no-referrer">'
            if p.get("thumbnail") else f'<svg class="noimg" viewBox="0 0 24 24">{ICON.get(p["part"], "")}</svg>')
+    if feat and p.get("thumbnail"):
+        # 一番大きいカードは縦に長いので、切り出すと拡大されすぎる。写真全体を収め、余りは同じ写真をぼかして敷く
+        src = E(p["thumbnail"])
+        img = (f'<img class="bg" src="{src}" alt="" aria-hidden="true" referrerpolicy="no-referrer">'
+               f'<img class="whole" src="{src}" alt="{E(p.get("model") or p["title"])}" referrerpolicy="no-referrer">')
     if feat and p.get("clip"):
         img = clip_tag(p) + f'<span class="vcredit">映像: {E(p["clip"]["credit"])}</span>'
     st = "japan" if p["status"] == "japan" else "away"

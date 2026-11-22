@@ -59,6 +59,8 @@ header nav a.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(14,27
 .meter i.ok{background:var(--ok)}.meter i.q{background:var(--q)}.meter i.ng{background:var(--ng)}
 .card.feat{grid-column:span 2;grid-row:span 2}
 .card.feat .im{aspect-ratio:auto;flex:1;min-height:260px}
+.card.feat .im img.bg{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(22px) saturate(1.1);opacity:.85}
+.card.feat .im img.whole{position:relative;width:100%;height:100%;object-fit:contain}
 .card.feat .tx{flex:none}
 .card.feat h2{font:900 21px/1.5 "Noto Sans JP";flex:none}
 .new{position:absolute;top:18px;left:18px;z-index:1;font:600 11px Lexend;letter-spacing:.1em;padding:4px 10px;border-radius:999px;background:var(--ink);color:#fff}
