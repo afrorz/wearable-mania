@@ -7,6 +7,7 @@ maker: Casio
 model: CRW-H001
 summary: 指輪サイズの液晶時計に心拍・血中酸素・体温・睡眠と振動通知。カシオ初のスマートリングは中国から先に出た
 thumbnail: https://www.casio.com.cn/cms-static/watches/casio/product/CRW-H001/1920x816.jpg
+thumbnail_crop: [40, 20, 620, 505, 1920]   # 3枚並びの公式画像の左(指にはめたリング)だけを見せる
 thumbnail_credit: カシオ中国 公式サイト
 price: "1,990元(中国のカシオ公式サイト、掲載時点)"
 status: china-only
