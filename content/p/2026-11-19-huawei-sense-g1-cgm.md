@@ -6,7 +6,7 @@ part: wrist
 maker: Huawei
 model: Sense G1(维感 G1)
 summary: "Huawei が初の持続血糖測定器 Sense G1 を中国で発表。腕に貼った値をスマートウォッチで見られる。"
-thumbnail: https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png
+thumbnail: https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png?x-image-process=image/format,webp
 thumbnail_crop: [352, 0, 1140, 522, 2400]   # 横長の公式画像の左上の写真(二の腕のセンサー)だけを見せる
 thumbnail_credit: 华为商城(VMALL)
 price: "未発表(掲載時点)"
@@ -73,7 +73,7 @@ Huawei が、同社で初めての持続血糖測定器(CGM)「Sense G1」(中�
 
 測り方は、病院でも使われている持続血糖測定と同じ型になる。Huawei Central と快科技によると、皮膚の下に入れる柔らかい針と電極で、細胞のまわりの液(組織間液)のブドウ糖を測り続ける。快科技は、発表前にブロガーが伝えた内容として、針・ブドウ糖酸化酵素・電極の組み合わせだと書いている。the5krunner によると、センサーは AirTag ほどの丸いパッチで、二の腕の裏に貼る。
 
-![センサー本体。丸いパッチを皮膚に貼って使う(公式ストアの画像)](https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png#crop=1330,55,1870,460,2400 "华为商城(VMALL)")
+![センサー本体。丸いパッチを皮膚に貼って使う(公式ストアの画像)](https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png?x-image-process=image/format,webp#crop=1330,55,1870,460,2400 "华为商城(VMALL)")
 
 公式の予告ポスターを伝えた快科技によると、1つのセンサーは1人だけで使い、利用者が自分で校正する必要はない。1回の使用期間は最長16日。組織間液で測るので、指先の血で測る値より5〜15分ほど遅れる。これは Sense G1 に限らず、この型の測定器に共通の性質だと the5krunner は書いている。
 
