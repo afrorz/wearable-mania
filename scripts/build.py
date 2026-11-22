@@ -219,9 +219,19 @@ def chips(p: dict) -> str:
 
 
 def focus(p: dict) -> str:
-    """thumbnail_focus("21% 50%" など)があれば、横長の公式画像の一部だけを枠いっぱいに見せる"""
-    f = p.get("thumbnail_focus")
-    return f' class="focus" style="object-position:{E(f)}"' if f else ""
+    """thumbnail_crop: [左, 上, 右, 下, 画像の幅](px)があれば、公式の画像のその範囲だけを枠いっぱいに見せる。
+    画像は加工せず、表示の位置と大きさだけを変える(枠を container にして cqw/cqh で計算する)"""
+    c = p.get("thumbnail_crop")
+    if not c:
+        return ""
+    x0, y0, x1, y1, w = c
+    return (f' class="crop" style="--x0:{x0};--y0:{y0};--cw:{x1 - x0};--ch:{y1 - y0};--w:{w}"')
+
+
+def crop_box(p: dict) -> str:
+    """記事の頭の枠の縦横比を、切り出す範囲の縦横比に合わせる"""
+    c = p.get("thumbnail_crop")
+    return f' class="cropbox" style="aspect-ratio:{c[2] - c[0]}/{c[3] - c[1]}"' if c else ""
 
 
 def card(p: dict, feat: bool = False) -> str:
@@ -257,7 +267,7 @@ def article(p: dict) -> str:
         hero = (f'<div class="hero has-clip">{clip_tag(p)}</div>'
                 f'<div class="credit">映像: <a href="{E(c["source"])}" target="_blank" rel="nofollow noopener">{E(c["credit"])}</a></div>')
     elif p.get("thumbnail"):
-        hero = (f'<div class="hero"><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)} referrerpolicy="no-referrer"></div>'
+        hero = (f'<div class="hero"><div{crop_box(p)}><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)} referrerpolicy="no-referrer"></div></div>'
                 f'<div class="credit">画像: {E(p.get("thumbnail_credit", ""))}</div>')
     rows = "".join(
         f'<tr><td>{label}</td><td><span class="mk {p["jp"][k]["mark"]}">{JUDGE[p["jp"][k]["mark"]]}</span>{E(str(p["jp"][k]["text"]))}</td></tr>'

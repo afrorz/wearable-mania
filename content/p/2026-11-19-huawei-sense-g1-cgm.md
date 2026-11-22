@@ -7,7 +7,7 @@ maker: Huawei
 model: Sense G1(维感 G1)
 summary: "Huawei が初の持続血糖測定器 Sense G1 を中国で発表。腕に貼った値をスマートウォッチで見られる。"
 thumbnail: https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png
-thumbnail_focus: "21.5% 50%"   # 横長の公式画像の左の写真(二の腕のセンサー)だけを見せる
+thumbnail_crop: [352, 0, 1140, 522, 2400]   # 横長の公式画像の左上の写真(二の腕のセンサー)だけを見せる
 thumbnail_credit: 华为商城(VMALL)
 price: "未発表(掲載時点)"
 status: china-only
