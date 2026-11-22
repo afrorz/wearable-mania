@@ -218,8 +218,14 @@ def chips(p: dict) -> str:
     return '<div class="chips">' + "".join(out) + "</div>"
 
 
+def focus(p: dict) -> str:
+    """thumbnail_focus("21% 50%" など)があれば、横長の公式画像の一部だけを枠いっぱいに見せる"""
+    f = p.get("thumbnail_focus")
+    return f' class="focus" style="object-position:{E(f)}"' if f else ""
+
+
 def card(p: dict, feat: bool = False) -> str:
-    img = (f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{"" if feat else " loading=\"lazy\""} referrerpolicy="no-referrer">'
+    img = (f'<img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)}{"" if feat else " loading=\"lazy\""} referrerpolicy="no-referrer">'
            if p.get("thumbnail") else f'<svg class="noimg" viewBox="0 0 24 24">{ICON.get(p["part"], "")}</svg>')
     if feat and p.get("clip"):
         img = clip_tag(p) + f'<span class="vcredit">映像: {E(p["clip"]["credit"])}</span>'
@@ -251,7 +257,7 @@ def article(p: dict) -> str:
         hero = (f'<div class="hero has-clip">{clip_tag(p)}</div>'
                 f'<div class="credit">映像: <a href="{E(c["source"])}" target="_blank" rel="nofollow noopener">{E(c["credit"])}</a></div>')
     elif p.get("thumbnail"):
-        hero = (f'<div class="hero"><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}" referrerpolicy="no-referrer"></div>'
+        hero = (f'<div class="hero"><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)} referrerpolicy="no-referrer"></div>'
                 f'<div class="credit">画像: {E(p.get("thumbnail_credit", ""))}</div>')
     rows = "".join(
         f'<tr><td>{label}</td><td><span class="mk {p["jp"][k]["mark"]}">{JUDGE[p["jp"][k]["mark"]]}</span>{E(str(p["jp"][k]["text"]))}</td></tr>'

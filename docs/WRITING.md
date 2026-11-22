@@ -67,6 +67,7 @@ model: CRW-H001
 summary: 一覧に出る1文(80字まで)
 thumbnail: https://...(メーカー公式の画像)
 thumbnail_credit: Casio 公式サイト
+# thumbnail_focus: "21.5% 50%"   # 任意。公式の画像が横長の帯などで小さく見えるとき、見せたい部分の位置(左右% 上下%)。枠いっぱいに切り出して見せる(画像は加工しない)
 price: "1,990元(中国、掲載時点)"
 status: china-only    # china-only(中国だけ)/ overseas(海外だけ)/ import(輸入で買える)/ japan(国内で買える)/ crowdfunding
 jp:
