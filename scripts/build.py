@@ -275,8 +275,12 @@ def card(p: dict, feat: bool = False) -> str:
 
 
 def home_order(posts: list[dict]) -> list[dict]:
-    """site.yaml の feature に書いた記事をトップの先頭(一番大きいカード)に出す。ほかは新しい順のまま"""
-    pin = SITE.get("feature") or ""
+    """トップの先頭(一番大きいカード)に出す記事を決める。ほかは新しい順のまま。
+    1. 動く映像(clip)のある記事のうち、いちばん新しい物(2026-11-22 本人「動画の動きがある新作は1つ目に出してよい」)
+    2. 映像のある記事が無ければ site.yaml の feature
+    3. それも無ければ最新の1本"""
+    clips = [p for p in posts if p.get("clip")]
+    pin = clips[0]["slug"] if clips else (SITE.get("feature") or "")
     first = [dict(p, pinned=True) for p in posts if p["slug"] == pin and p is not posts[0]]  # 最新でなければ NEW の札を出さない
     if not first:
         return posts
