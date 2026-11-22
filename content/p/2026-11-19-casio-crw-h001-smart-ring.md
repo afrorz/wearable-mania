@@ -1,5 +1,5 @@
 ---
-title: "カシオのリングウォッチが心拍と体温を測る CRW-H001、日本で使える？"
+title: "カシオ初のスマートリング「CRW-H001」は指輪サイズの液晶時計、心拍と体温を測って中国で1,990元"
 slug: casio-crw-h001-smart-ring
 date: 2026-11-19
 part: finger

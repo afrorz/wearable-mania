@@ -1,5 +1,5 @@
 ---
-title: "Samsung と Google の AI メガネ、Gentle Monster と Warby Parker から30種類。日本で使える？"
+title: "SamsungとGoogleのAIメガネ、Gentle MonsterとWarby Parkerの30種類で12月10日に米韓発売・395ドルから"
 slug: samsung-google-intelligent-eyewear
 date: 2026-11-22
 part: face

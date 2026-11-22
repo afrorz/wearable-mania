@@ -1,5 +1,5 @@
 ---
-title: "Huawei 初の血糖センサー Sense G1、腕に貼って最長16日。日本で使える？"
+title: "Huawei初の持続血糖測定器「Sense G1」、腕に貼って最長16日・値はスマートウォッチで見る"
 slug: huawei-sense-g1-cgm
 date: 2026-11-19
 part: wrist

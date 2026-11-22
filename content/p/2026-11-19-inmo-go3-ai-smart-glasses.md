@@ -1,5 +1,5 @@
 ---
-title: "INMO GO3、58gのメガネに字幕翻訳と原稿表示。日本で使える？"
+title: "INMO「GO3」は約58gの字幕翻訳メガネ、電池は約5秒で差し替え・国内99,800円"
 slug: inmo-go3-ai-smart-glasses
 date: 2026-11-19
 part: face

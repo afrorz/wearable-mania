@@ -1,5 +1,5 @@
 ---
-title: "Even G2、カメラを持たず36gで視界に字幕と道案内を映すメガネ。日本で使える？"
+title: "Even Realities「Even G2」はカメラの無い36gの表示メガネ、ビックカメラ・ヨドバシで99,800円から"
 slug: even-realities-g2-smart-glasses
 date: 2026-11-22
 part: face
