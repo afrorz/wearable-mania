@@ -57,12 +57,16 @@ header nav a.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(14,27
 .meter{display:flex;gap:3px}
 .meter i{flex:1;height:4px;border-radius:2px;background:var(--none)}
 .meter i.ok{background:var(--ok)}.meter i.q{background:var(--q)}.meter i.ng{background:var(--ng)}
-.card.feat{grid-column:span 2;grid-row:span 2}
-.card.feat .im{aspect-ratio:auto;flex:1;min-height:260px}
+/* 一番大きいカード(2026-11-23 本人が4案から D を選んだ): 横いっぱいの低い帯。映像を敷き、下の暗いグラデーションに白い題名を重ねる */
+.card.feat{grid-column:1/-1;min-height:360px;color:#fff}
+.card.feat .im{position:absolute;inset:0;margin:0;border-radius:24px;aspect-ratio:auto;min-height:0}
 .card.feat .im img.bg{position:absolute;inset:-60px;width:calc(100% + 120px);height:calc(100% + 120px);object-fit:cover;filter:blur(22px) saturate(1.1);opacity:.85}
 .card.feat .im img.whole{position:relative;width:100%;height:100%;object-fit:contain}
-.card.feat .tx{flex:none}
-.card.feat h2{font:900 21px/1.5 "Noto Sans JP";flex:none}
+.card.feat .tx{flex:none;position:relative;margin-top:auto;padding:90px 30px 24px;gap:10px;background:linear-gradient(transparent,rgba(8,16,22,.8));border-radius:0 0 24px 24px}
+.card.feat h2{font:900 26px/1.5 "Noto Sans JP";flex:none;max-width:780px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.card.feat .mono{color:rgba(255,255,255,.8)}
+.card.feat .chip{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card.feat .vcredit{top:12px;bottom:auto}
 .new{position:absolute;top:18px;left:18px;z-index:1;font:600 11px Lexend;letter-spacing:.1em;padding:4px 10px;border-radius:999px;background:var(--ink);color:#fff}
 .chips{display:flex;flex-wrap:wrap;gap:5px}
 .chip{font:700 11.5px "Noto Sans JP";padding:4px 10px;border-radius:999px;background:#fff;display:inline-flex;gap:6px;align-items:center}
@@ -146,8 +150,10 @@ footer.site a{color:var(--sub);margin-right:14px}
   .grid{gap:10px}
   .card .tx{padding:8px 10px 12px}
   .card h3{font-size:13px}
-  .card.feat .im{min-height:190px}
+  .card.feat{min-height:300px}
+  .card.feat .tx{padding:60px 14px 14px}
   .card.feat h2{font-size:17px}
+  .card.feat .chip{font-size:10.5px;padding:3px 8px}
   .jp{padding:14px}
   .jp td{display:block;width:100%!important;padding:2px 0}
   .jp td:first-child{padding-top:10px}
@@ -160,7 +166,6 @@ footer.site a{color:var(--sub);margin-right:14px}
 /* 動く映像 */
 video.clip{display:block;width:100%;height:100%;object-fit:cover;background:#fff}
 .card.feat .im video.clip{position:absolute;inset:0}
-.card.feat .im{position:relative}
 .hero.has-clip{aspect-ratio:16/9}
 .hero.has-clip video.clip{border-radius:0}
 .credit a{color:var(--sub)}
