@@ -12,6 +12,8 @@ site:
   # トップの一番大きいカードは、動く映像(clip)のある記事のうち最新の物。映像のある記事が1本も無いときだけ、ここの slug を使う(空なら最新の1本)
   # 2026-11-22 本人「しばらく INMO GO3 を固定。ほかの新作で動画の動きがあれば、それを1つ目に出してよい」
   feature: inmo-go3-ai-smart-glasses
+  # Search Console の所有権の確認(HTML タグの方式)。<meta name="google-site-verification" content="ここ"> の content の値だけを入れる。空ならタグは出ない
+  search_console_verification: ""
 
 # 紹介リンク(もしも)。{url} に楽天・Amazon・Yahoo の検索ページの URL(エンコード済み)が入る。
 # もしもでこのサイトを新しく登録し、提携が通るまで空のまま(GT・充電沼の a_id を貼らない)。

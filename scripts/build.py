@@ -154,7 +154,7 @@ def badges(p: dict) -> str:
     return '<div class="badges">' + "".join(out) + "</div>"
 
 
-def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jsonld: dict | None = None, og_type="website") -> str:
+def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jsonld: dict | list | None = None, og_type="website", noindex: bool = False) -> str:
     url = BASE + path
     full = f"{SITE['title']} | {SITE['title_ja']}" if title == SITE["title"] else f"{title} | {SITE['title']}"
     ga = ""
@@ -163,9 +163,16 @@ def page(title: str, body: str, *, desc: str, path: str, og_image: str = "", jso
         ga = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
               f"<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','{gid}');"
               "document.addEventListener('click',e=>{const a=e.target.closest('[data-store]');if(a)gtag('event','buy_click',{store:a.dataset.store,page:location.pathname})});</script>")
-    ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>'
+                 for j in (jsonld if isinstance(jsonld, list) else [jsonld] if jsonld else []))
     og_image = og_image or f"{BASE}/ogp-1200x630.png"  # 写真の無いページは共有用の画像(make_brand_images.py)
     og = f'<meta property="og:image" content="{E(og_image)}"><meta name="twitter:card" content="summary_large_image">'
+    # 記事の無い部位のページなど、中身の薄いページは検索に出さない(リンクはたどってよい)
+    if noindex:
+        og += '<meta name="robots" content="noindex,follow">'
+    # Search Console の所有権の確認(HTML タグの方式)。site.yaml に content の値だけを入れる
+    if SITE.get("search_console_verification"):
+        og += f'<meta name="google-site-verification" content="{E(SITE["search_console_verification"])}">'
     year = dt.date.today().year
     years = f"{SITE['copyright_from']}" if year == SITE["copyright_from"] else f"{SITE['copyright_from']}–{year}"
     return f"""<!doctype html>
@@ -341,6 +348,15 @@ def article(p: dict) -> str:
             f'</p>{hero}{jp}<div class="body">{p["body_html"]}</div>{specs}{buy}{alts}{ad}{src}</article>')
 
 
+def related(p: dict, posts: list[dict], n: int = 4) -> str:
+    """記事の下に出す「ほかの記事」。同じ部位の新しい順、足りなければほかの部位の新しい順"""
+    others = [q for q in posts if q["slug"] != p["slug"]]
+    pick = ([q for q in others if q["part"] == p["part"]] + [q for q in others if q["part"] != p["part"]])[:n]
+    if not pick:
+        return ""
+    return '<section class="more"><h2 class="sec">ほかの<b>記事</b></h2>' + grid(pick) + "</section>"
+
+
 def write(path: str, text: str) -> None:
     f = OUT / path.lstrip("/") / "index.html" if path.endswith("/") else OUT / path.lstrip("/")
     f.parent.mkdir(parents=True, exist_ok=True)
@@ -386,21 +402,36 @@ def main() -> None:
         name = pt["name"] + (f"({pt['sub']})" if pt["sub"] else "")
         body = (f'<section class="intro"><h1 class="small">{E(pt["name"])}<b>につける</b></h1><p>{E(pt["sub"] or pt["name"])}のウェアラブル。技適と日本で使えない機能まで確かめています。</p></section>'
                 + grid(sub) + '<h2 class="sec">ほかの部位</h2>' + parts_links())
-        write(f"/part/{pt['slug']}/", page(f"{name}のウェアラブル", body, desc=f"{name}につけるウェアラブルガジェットの新製品。技適と日本で使えない機能まで。", path=f"/part/{pt['slug']}/"))
+        write(f"/part/{pt['slug']}/", page(f"{name}のウェアラブル", body, desc=f"{name}につけるウェアラブルガジェットの新製品。技適と日本で使えない機能まで。",
+                                           path=f"/part/{pt['slug']}/", noindex=not sub))
     for p in posts:
         path = f"/p/{p['slug']}/"
         ld = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "datePublished": p["date"],
-              "dateModified": p["modified"], "author": {"@type": "Organization", "name": SITE["author"]},
-              "publisher": {"@type": "Organization", "name": SITE["title"]}, "mainEntityOfPage": BASE + path}
+              "dateModified": p["modified"], "description": p["summary"], "inLanguage": "ja",
+              "author": {"@type": "Organization", "name": SITE["author"], "url": BASE + "/about/"},
+              "publisher": {"@type": "Organization", "name": SITE["title"], "url": BASE + "/",
+                            "logo": {"@type": "ImageObject", "url": BASE + "/logo-mark.png"}},
+              "mainEntityOfPage": BASE + path}
         if p.get("thumbnail"):
-            ld["image"] = p["thumbnail"]
-        write(path, page(p["title"], article(p), desc=p["summary"], path=path, og_image=p.get("thumbnail", ""), jsonld=ld, og_type="article"))
+            ld["image"] = [p["thumbnail"]]
+        part = PART[p["part"]]
+        crumb = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": BASE + "/"},
+            {"@type": "ListItem", "position": 2, "name": part["name"], "item": f"{BASE}/part/{part['slug']}/"},
+            {"@type": "ListItem", "position": 3, "name": p["title"]}]}
+        write(path, page(p["title"], article(p) + related(p, posts), desc=p["summary"], path=path,
+                         og_image=p.get("thumbnail", ""), jsonld=[ld, crumb], og_type="article"))
     static_page("about", "/about/")
     static_page("privacy", "/privacy/")
-    write("/404.html", page("ページが見つかりません", '<div class="page"><h1>ページが見つかりません</h1><p><a href="/">トップへ戻る</a></p></div>', desc="", path="/404.html"))
+    write("/404.html", page("ページが見つかりません", '<div class="page"><h1>ページが見つかりません</h1><p><a href="/">トップへ戻る</a></p></div>', desc="", path="/404.html", noindex=True))
 
-    urls = ["/"] + [f"/part/{pt['slug']}/" for pt in PARTS] + [f"/p/{p['slug']}/" for p in posts] + ["/about/", "/privacy/"]
+    has = {p["part"] for p in posts}
+    urls = ["/"] + [f"/part/{pt['slug']}/" for pt in PARTS if pt["slug"] in has] + [f"/p/{p['slug']}/" for p in posts] + ["/about/", "/privacy/"]
     mod = {f"/p/{p['slug']}/": p["modified"] for p in posts}
+    if posts:
+        mod["/"] = max(p["modified"] for p in posts)
+        for pt in has:
+            mod[f"/part/{pt}/"] = max(p["modified"] for p in posts if p["part"] == pt)
     sm = "".join(f"<url><loc>{BASE}{u}</loc>" + (f"<lastmod>{mod[u]}</lastmod>" if u in mod else "") + "</url>" for u in urls)
     write("/sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>')
     write("/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
