@@ -28,7 +28,7 @@ def transparent_mark() -> Image.Image:
     src = im.load()
     out = Image.new("RGBA", (w, h))
     px = out.load()
-    FULL = 228  # これ以上白から離れていれば不透明(文字の黒も緑も min が 20 前後)
+    FULL = 228  # これ以上白から離れていれば不透明(文字の黒もオレンジも min が 30 以下)
     for y in range(h):
         for x in range(w):
             r, g, b = src[x, y]
@@ -70,7 +70,7 @@ def main() -> None:
 <style>html,body{{margin:0;width:1200px;height:630px;background:#fff;overflow:hidden}}
 .c{{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}}
 img{{width:430px}}.t{{font:700 76px Lexend;letter-spacing:-.02em;color:#16181d}}
-.s{{font:700 30px "Noto Sans JP";color:#0f7d70;letter-spacing:.08em;margin-top:-18px}}
+.s{{font:700 30px "Noto Sans JP";color:#E25E00;letter-spacing:.08em;margin-top:-18px}}
 .bar{{position:absolute;left:0;right:0;bottom:0;height:22px;background:#16181d}}</style></head>
 <body><div class="c"><img src="../brand/wm-mark.png"><div class="t">Wearable Mania</div><div class="s">ウェアラブルガジェット専門</div></div><div class="bar"></div></body></html>""",
                     encoding="utf-8")
