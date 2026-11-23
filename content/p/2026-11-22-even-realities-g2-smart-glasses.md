@@ -7,6 +7,7 @@ maker: Even Realities
 model: Even G2
 summary: "度付きにもできる36gのメガネに、緑の文字で会話の要点・翻訳・道案内を映す。10月に新色が出て、本田圭佑さんが日本の顔に"
 thumbnail: https://cdn.sanity.io/images/wfyhg2qw/production/61c07b2f89213df371a996bb67a9e53ecd321470-2190x2190.jpg
+thumbnail_crop: [78, 236, 2108, 1928, 2190]   # 灰色の地の真ん中にあるメガネだけを枠いっぱいに見せる
 thumbnail_credit: Even Realities 公式サイト
 clip:
   file: even-realities-g2-smart-glasses/top.mp4

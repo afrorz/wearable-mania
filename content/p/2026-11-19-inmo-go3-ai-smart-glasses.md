@@ -7,6 +7,7 @@ maker: INMO
 model: "INMO GO3(IMG301)"
 summary: "相手の言葉を字幕でレンズに出し、電池は5秒で差し替え。約58gのAIグラスが国内でも売られている"
 thumbnail: https://www.inmo.com/cdn/shop/files/01_220b25ec-55a1-4b56-aff3-92dc9b9dc1f3.png
+thumbnail_crop: [242, 450, 1758, 1714, 2000]   # 右上の賞のロゴを外し、メガネだけを枠いっぱいに見せる
 clip:
   file: inmo-go3-ai-smart-glasses/top.mp4
   poster: inmo-go3-ai-smart-glasses/top.jpg
