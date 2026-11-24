@@ -112,6 +112,10 @@ figure.shot .cropbox{background:#fff;max-width:520px;margin:0 auto}
 .verdict{margin-top:8px;padding:12px 14px;border-radius:16px;background:#fff;font:700 14.5px/1.75 "Noto Sans JP"}
 .body h2,article>h2{font:900 19px/1.5 "Noto Sans JP";margin:32px 0 8px}
 .body p,.body li{color:#24343D}
+.body table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 18px;background:var(--glass);border-radius:18px;overflow:hidden}
+.body th,.body td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(14,27,36,.06)}
+.body thead th{font-weight:800;background:rgba(255,255,255,.5)}
+.body td:first-child{color:var(--sub);font-weight:500;white-space:nowrap}
 .spec{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 10px;background:var(--glass);border-radius:18px;overflow:hidden}
 .spec th,.spec td{padding:9px 14px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(14,27,36,.06)}
 .spec th{width:32%;color:var(--sub);font-weight:500}
@@ -177,3 +181,4 @@ figure.shot{margin:22px 0;border-radius:24px;overflow:hidden;background:#fff;bor
 figure.shot img{display:block;width:100%;max-height:520px;object-fit:contain;background:#fff}
 figure.shot figcaption{padding:10px 16px 12px;font-size:13px;color:var(--sub);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--glass)}
 .fcredit{font-size:11px}
+@media(max-width:600px){.body table{font-size:12.5px}.body th,.body td{padding:8px 7px}.body td:first-child{white-space:normal}}
