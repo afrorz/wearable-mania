@@ -29,6 +29,11 @@ PARTS = CFG["parts"]
 PART = {p["slug"]: p for p in PARTS}
 STATUS = CFG["status"]
 BASE = SITE["base_url"].rstrip("/")
+
+
+def absurl(u: str) -> str:
+    """サイトの中に置いた画像(/img/...)は、共有用・構造化データ用に完全な URL にする"""
+    return BASE + u if u.startswith("/") else u
 E = html.escape
 
 JP_ROWS = [("giteki", "技適"), ("buy", "国内で買えるか"), ("app", "アプリ"),
@@ -390,6 +395,8 @@ def main() -> None:
         shutil.copy(ROOT / "assets" / name, OUT / name)
     if (ROOT / "content" / "clips").exists():
         shutil.copytree(ROOT / "content" / "clips", OUT / "clips")
+    if (ROOT / "content" / "img").exists():  # 中国のサーバーなど、日本から遅い公式画像の写し(docs/WRITING.md)
+        shutil.copytree(ROOT / "content" / "img", OUT / "img")
     (OUT / "CNAME").write_text(urllib.parse.urlparse(BASE).netloc + "\n", encoding="utf-8")
 
     home = ('<section class="intro"><h1><span class="eb mono">Wearable Mania · ウェアラブルガジェット専門</span>wear<b>able</b> future.</h1>'
@@ -413,14 +420,14 @@ def main() -> None:
                             "logo": {"@type": "ImageObject", "url": BASE + "/logo-mark.png"}},
               "mainEntityOfPage": BASE + path}
         if p.get("thumbnail"):
-            ld["image"] = [p["thumbnail"]]
+            ld["image"] = [absurl(p["thumbnail"])]
         part = PART[p["part"]]
         crumb = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "ホーム", "item": BASE + "/"},
             {"@type": "ListItem", "position": 2, "name": part["name"], "item": f"{BASE}/part/{part['slug']}/"},
             {"@type": "ListItem", "position": 3, "name": p["title"]}]}
         write(path, page(p["title"], article(p) + related(p, posts), desc=p["summary"], path=path,
-                         og_image=p.get("thumbnail", ""), jsonld=[ld, crumb], og_type="article"))
+                         og_image=absurl(p.get("thumbnail", "")), jsonld=[ld, crumb], og_type="article"))
     static_page("about", "/about/")
     static_page("privacy", "/privacy/")
     write("/404.html", page("ページが見つかりません", '<div class="page"><h1>ページが見つかりません</h1><p><a href="/">トップへ戻る</a></p></div>', desc="", path="/404.html", noindex=True))

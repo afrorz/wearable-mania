@@ -7,8 +7,7 @@ part: wrist
 maker: Huawei
 model: Sense G1(维感 G1、MAC-B10)
 summary: "Huawei 初の持続血糖測定器。二の腕に貼った1.5gのセンサーの値を、スマートフォンと Huawei の時計で見る。中国で1本299元、12月11日発売"
-thumbnail: https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png?x-image-process=image/format,webp
-thumbnail_crop: [352, 0, 1140, 522, 2400]   # 横長の公式画像の左上の写真(二の腕のセンサー)だけを見せる
+thumbnail: /img/huawei-sense-g1-cgm/thumb.jpg   # 公式ストアの画像(中国のサーバーで遅いので写しを置く)
 thumbnail_credit: 华为商城(VMALL)
 price: "299元(センサー1本、中国の公式ストア、2027年1月31日までの限定価格。定価は329元、掲載時点)"
 status: china-only
@@ -90,9 +89,9 @@ Huawei が、同社で初めての持続血糖測定器(CGM)「Sense G1」(中�
 
 測り方は、病院でも使われている持続血糖測定と同じ型になる。Huawei Central と快科技によると、皮膚の下に入れる柔らかい針と電極で、細胞のまわりの液(組織間液)のブドウ糖を測り続ける。快科技は、発表前にブロガーが伝えた内容として、針・ブドウ糖酸化酵素・電極の組み合わせだと書いている。公式ストアによると、センサーは直径20.8mm、厚さ2.9mm、重さ約1.5gの丸いパッチで、二の腕の裏に貼る。針を入れる道具(助針器)の中にセンサーが入っていて、ふたを開けて腕に当て、押すだけで着けられる。針は外から見えない作りだ。
 
-![二の腕の裏に貼ったセンサー(公式ストアの画像)](https://res1.vmallres.com/pimages/FssCdnProxy/vmall_product_uom/pmsSalesFile/800_800_5539D9FC5E427C4EE5A726F5E0E737B8.jpg#crop=400,250,765,665,800 "华为商城(VMALL)")
+![二の腕の裏に貼ったセンサー(公式ストアの画像)](/img/huawei-sense-g1-cgm/arm.webp "华为商城(VMALL)")
 
-![センサー本体。丸いパッチを皮膚に貼って使う(公式ストアの画像)](https://res.vmallres.com/uomcdn/CN/cms/202611/edec3deba69b4fd1a752bfbbc1abaeea.png?x-image-process=image/format,webp#crop=1330,55,1870,460,2400 "华为商城(VMALL)")
+![センサー本体。丸いパッチを皮膚に貼って使う(公式ストアの画像)](/img/huawei-sense-g1-cgm/sensor.webp "华为商城(VMALL)")
 
 公式ストアによると、1つのセンサーは1人だけで使い、利用者が自分で校正する必要はない。1回の使用期間は最長16日で、期限が来ると止まるので新しいセンサーに替える。貼ってから30分で値が出始め、そのあとは1分ごとに更新する。組織間液で測るので、指先の血で測る値より5〜15分ほど遅れる。これは Sense G1 に限らず、この型の測定器に共通の性質だと the5krunner は書いている。
 
@@ -122,6 +121,6 @@ Huawei にとって初めての製品なので、前の型は無い。近いの�
 
 11月24日の「HUAWEI Mate X8 及び全場景新製品発表会」で、価格と発売日が出た。中国の公式ストア「华为商城(VMALL)」では、センサー1本が定価329元、2027年1月31日までの限定価格が299元(掲載時点)。11月24日に予約を始め、12月11日に発売する。公式ストアには2本・4本・6本のまとめ買いもある。
 
-![助針器と、中に入っているセンサー(公式ストアの画像)](https://res1.vmallres.com/pimages/FssCdnProxy/vmall_product_uom/pmsSalesFile/800_800_AAFEC4B3D4EBD2BE32C00BA7AF5AA0B9.png#crop=170,110,630,650,800 "华为商城(VMALL)")
+![助針器と、中に入っているセンサー(公式ストアの画像)](/img/huawei-sense-g1-cgm/applicator.webp "华为商城(VMALL)")
 
 発表は中国向けで、海外での予定は出ていない。the5krunner は、欧州で売るにはその地域の医療機器の認証が別に要り、Huawei の血圧計の時計も欧州の認証まで数か月待ったと書いている。日本でも医療機器として売るには国内での承認が別に必要になるとみられ、Huawei Japan の公式サイトには、11月25日時点で Sense G1 の案内は見当たらない。
