@@ -228,6 +228,19 @@ def meter(p: dict) -> str:
         f'<i class="{(p["jp"].get(k) or {}).get("mark", "none")}"></i>' for k, _ in JP_ROWS) + "</div>"
 
 
+CELL = {"giteki": "技適", "buy": "販売", "app": "アプリ", "health": "健康", "pay": "決済", "lang": "言語"}
+
+
+def cells(p: dict) -> str:
+    """一覧のカードの「日本で使える？」。3列×2行のバッジに、色の点と項目名を出す(本人が3案から B を選び、バッジにした)
+    (2026-11-26 本人「色の線だけだと初見の人は意味がわからない」)"""
+    out = []
+    for k, _ in JP_ROWS:
+        mk = (p["jp"].get(k) or {}).get("mark", "none")
+        out.append(f'<span class="cl {mk}" title="{CELL[k]}: {JUDGE[mk]}">{CELL[k]}</span>')
+    return '<div class="cells" aria-label="日本で使える？">' + "".join(out) + "</div>"
+
+
 def chips(p: dict) -> str:
     out = []
     for k, _ in JP_ROWS:
@@ -279,7 +292,7 @@ def card(p: dict, feat: bool = False) -> str:
     if feat and p.get("clip"):
         img = clip_tag(p) + f'<span class="vcredit">映像: {E(p["clip"]["credit"])}</span>'
     st = "japan" if p["status"] == "japan" else "away"
-    judge = chips(p) if feat else meter(p)
+    judge = chips(p) if feat else cells(p)
     tag = "h2" if feat else "h3"
     return (f'<a class="card{" feat" if feat else ""}" href="/p/{p["slug"]}/">' + ('<span class="new">NEW</span>' if feat and not p.get("pinned") else "") +
             f'<div class="im">{img}</div><div class="tx"><div class="top"><span class="mono">{E(PART[p["part"]]["name"])} · {p["date"][5:].replace("-", ".")}</span>'
