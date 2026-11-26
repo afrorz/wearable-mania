@@ -60,8 +60,8 @@ header nav a.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(14,27
 .cl::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--none);box-shadow:0 0 0 3px rgba(203,214,218,.25)}
 .cl.ok::before{background:var(--ok);box-shadow:0 0 0 3px rgba(18,179,156,.15)}
 .cl.q::before{background:var(--q);box-shadow:0 0 0 3px rgba(242,179,61,.18)}
-.cl.ng{color:var(--ngt);background:rgba(239,90,75,.07);border-color:rgba(239,90,75,.18)}
-.cl.ng::before{background:var(--ng);box-shadow:0 0 0 3px rgba(239,90,75,.15)}
+.cl.ng{}  /* 地と文字は他と同じ。赤は点だけ(2026-11-26 本人「赤の主張が強すぎる」) */
+.cl.ng::before{background:var(--ng);box-shadow:0 0 0 3px rgba(239,90,75,.12)}
 .cl.none{color:#A3B1B6;background:rgba(255,255,255,.4)}
 .meter{display:flex;gap:3px}
 .meter i{flex:1;height:4px;border-radius:2px;background:var(--none)}
