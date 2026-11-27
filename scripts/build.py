@@ -386,7 +386,8 @@ def static_page(name: str, path: str) -> None:
     m = re.match(r"^---\n(.*?)\n---\n(.*)$", txt, re.S)
     fm, body = yaml.safe_load(m.group(1)), m.group(2)
     ads = ("このサイトの買うボタンの一部は、もしもアフィリエイトを通じた紹介リンクです(楽天市場・Amazon・Yahoo!ショッピング)。リンクから買い物があると、運営者に紹介料が入ります。紹介料の有無で、載せる製品や書き方は変えていません。"
-           if has_aff() else "今は広告を載せていません。買うボタンは、ふつうの検索ページへのリンクです。")
+           if has_aff() else "今は広告を載せていません。買うボタンは、ふつうの検索ページへのリンクです。もしもアフィリエイト(楽天市場・Amazon・Yahoo!ショッピング)との提携が始まったら、買うボタンの一部を紹介リンクにします。")
+    ads += "<br>Amazonのアソシエイトとして、当メディアは適格販売により収入を得ています。"
     ana = ("Google アナリティクス(GA4)で、ページの閲覧と買うボタンが押された回数を数えています。Cookie を使いますが、個人を特定する情報は集めていません。"
            if SITE.get("analytics_id") else "")
     body = body.replace("{{ads}}", ads).replace("{{analytics}}", ana).replace("{{author}}", SITE["author"]).replace("{{contact}}", SITE["contact_email"])
