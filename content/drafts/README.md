@@ -6,4 +6,4 @@
 2. `img/<slug>/` があれば `content/img/` へ移す
 3. `python scripts/build.py` が通ってから push
 
-- 2026-11-26 に書いた XREAL 1 Pro+ と Raven Prism(12/1 の週に公開する。週3本の決まりのため)
+- 2026-11-26 に書いた XREAL 1 Pro+ と Raven Prism、11-28 に書いた Savage Orrorin Glasses(3本とも 12/1 の週に公開する。週3本の決まりのため)
