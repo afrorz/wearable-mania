@@ -8,6 +8,11 @@ model: Orrorin Glasses
 summary: "45gのメガネに両目のフルカラー MicroLED と視線を追うカメラを入れ、空中でつまむだけで操作する。アプリは AI に作らせる仕組みも用意"
 thumbnail: /img/orrorin-glasses/thumb.webp
 thumbnail_credit: Savage Technology 公式サイト
+clip:
+  file: savage-orrorin-glasses/top.mp4
+  poster: savage-orrorin-glasses/top.jpg
+  credit: "Savage Technology 公式サイト"
+  source: "https://savage.tech/"
 price: "799ドル(予約金は Founder Edition 199ドル、Early Bird 29ドル。どちらも本体価格に充てる。掲載時点)"
 status: overseas
 jp:
