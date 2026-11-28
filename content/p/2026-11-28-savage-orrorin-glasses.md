@@ -39,6 +39,9 @@ alternatives:
   - name: "Even Realities Even G2"
     why: "国内で正規に買える、カメラの無い表示つきのメガネ。36gで、表示は緑の1色。99,800円から"
     query: "Even G2 スマートグラス"
+    image: https://cdn.sanity.io/images/wfyhg2qw/production/61c07b2f89213df371a996bb67a9e53ecd321470-2190x2190.jpg
+    image_credit: "Even Realities 公式サイト"
+    image_crop: [78, 236, 2108, 1928, 2190]
 sources:
   - title: "Orrorin AI Glasses"
     url: "https://savage.tech/"

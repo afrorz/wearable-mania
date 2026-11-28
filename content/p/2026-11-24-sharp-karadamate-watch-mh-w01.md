@@ -41,6 +41,8 @@ alternatives:
   - name: "からだメイト Ring(MH-R01)"
     why: "同時に出たシャープのリング。摂取カロリーは測れないが、2.1〜3.1gで最大14日もつ。41,800円(COCORO STORE、掲載時点)"
     query: "からだメイト Ring MH-R01"
+    image: https://jp.sharp/wearable/common/images/ring_color_gold_1.png
+    image_credit: "シャープ 公式サイト"
 sources:
   - title: "からだメイト Watch MH-W01"
     url: "https://jp.sharp/wearable/watch/mhw01/"

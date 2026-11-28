@@ -39,6 +39,8 @@ alternatives:
   - name: "HUAWEI WATCH FIT 4 Pro"
     why: "国内で買える華為の薄型の時計。厚さ約9.3mm・約26gで心電図つき。発売時の価格は37,180円から"
     query: "HUAWEI WATCH FIT 4 Pro"
+    image: https://consumer.huawei.com/dam/content/dam/huawei-cbg-site/common/mkt/pdp/wearables/watch-fit4-pro/list-green.png
+    image_credit: "Huawei 公式サイト(日本)"
 sources:
   - title: "HUAWEI WATCH Air"
     url: "https://consumer.huawei.com/cn/wearables/watch-air/"
