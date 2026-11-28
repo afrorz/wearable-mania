@@ -11,6 +11,7 @@ thumbnail_crop: [300, 0, 1110, 675, 1200]   # 右のレンズと RAVEN の文字
 thumbnail_credit: Raven Resonance 公式サイト
 price: "1,499ドル(米国、予約金49ドル、掲載時点)"
 status: overseas
+get: "米国の公式サイトで予約受付中(予約金49ドル、全額返金可)。本体は1,499ドルで、いま予約すると出荷は2027年夏"
 jp:
   giteki: {mark: q, text: "Wi-Fi と Bluetooth を使う。型番が公式に無く、総務省の検索では見つからない(掲載時点)"}
   buy: {mark: ng, text: "いまの出荷先は米国だけ。次は EU で、日本の予定は書かれていない"}

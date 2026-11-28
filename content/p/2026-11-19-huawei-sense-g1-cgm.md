@@ -8,6 +8,7 @@ maker: Huawei
 model: Sense G1(维感 G1、MAC-B10)
 summary: "Huawei 初の持続血糖測定器。二の腕に貼った1.5gのセンサーの値を、スマートフォンと Huawei の時計で見る。中国で1本299元、12月11日発売"
 thumbnail: /img/huawei-sense-g1-cgm/thumb.jpg   # 公式ストアの画像(中国のサーバーで遅いので写しを置く)
+thumbnail_crop: [60, 0, 686, 522, 788]   # 写真なので枠いっぱいに見せる(横:縦=1.2:1)
 thumbnail_credit: 华为商城(VMALL)
 price: "299元(センサー1本、中国の公式ストア、2027年1月31日までの限定価格。定価は329元、掲載時点)"
 status: china-only

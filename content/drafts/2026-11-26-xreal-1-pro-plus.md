@@ -11,6 +11,7 @@ thumbnail_crop: [1000, 300, 3400, 2300, 4344]   # 光の帯の中に浮かぶメ
 thumbnail_credit: XREAL 公式サイト(日本)
 price: "84,980円(税込、XREAL 公式ストア、掲載時点)"
 status: japan
+get: "11月10日に国内で発売。84,980円(税込)で、公式ストア・Amazon・ビックカメラ・ヨドバシカメラで買える(掲載時点)"
 jp:
   giteki: {mark: ok, text: "XREAL が国内で正規に販売。メガネは USB-C の有線でつなぐ"}
   buy: {mark: ok, text: "11月10日発売。公式ストア・Amazon・ビックカメラ・ヨドバシカメラで扱う"}
