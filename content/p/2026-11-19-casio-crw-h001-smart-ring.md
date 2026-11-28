@@ -10,6 +10,7 @@ thumbnail: /img/casio-crw-h001-smart-ring/thumb.jpg   # 公式の3枚並びの�
 thumbnail_credit: カシオ中国 公式サイト
 price: "1,990元(中国のカシオ公式サイト、掲載時点)"
 status: china-only
+get: "中国のカシオ公式サイトで1,990元で販売中(掲載時点)。販売とアフターサービスは中国だけ"
 jp:
   giteki: {mark: q, text: "総務省の検索では見つからない(掲載時点)"}
   buy: {mark: ng, text: "公式ページに「中国だけで販売、アフターサービスも中国だけ」と明記"}

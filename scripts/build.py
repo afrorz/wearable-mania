@@ -100,7 +100,7 @@ def load_posts() -> list[dict]:
         if not m:
             fail(f"{f.name}: front matter がない")
         fm = yaml.safe_load(m.group(1))
-        for k in ("title", "slug", "date", "part", "summary", "status", "jp", "sources"):
+        for k in ("title", "slug", "date", "part", "summary", "status", "get", "jp", "sources"):
             if not fm.get(k):
                 fail(f"{f.name}: {k} がない")
         if fm["part"] not in PART:
@@ -344,8 +344,8 @@ def article(p: dict) -> str:
     verdict = f'<div class="verdict">結論: {E(p["jp"]["verdict"])}</div>' if p["jp"].get("verdict") else ""
     jp = (f'<div class="jp" id="jp"><div class="jp-h"><div><b class="jc">JAPAN CHECK</b><small>日本で使うときの6項目(技適・販売・アプリ・健康・決済・言語)</small></div><span class="mono">{p["modified"].replace("-", ".")} 時点</span></div>'
           f'<table>{rows}</table>{verdict}</div>')
-    # get: があれば、頭は「手に入れ方」の1行だけにして、「日本で使える？」の欄は本文のあとへ下げる
-    # (2026-11-28 本人「冒頭でいきなり買えないと書いてあると読者はどう思うか」。まず Orrorin の1本で試す)
+    # 頭は「手に入れ方」(get:)の1行だけにして、JAPAN CHECK の欄は本文のあとへ下げる
+    # (2026-11-28 本人「冒頭でいきなり買えないと書いてあると読者はどう思うか」。Orrorin で試し、同じ日に全記事へ)
     get, top_jp, after_jp = "", jp, ""
     if p.get("get"):
         get = (f'<div class="get"><b>手に入れ方</b><span>{E(p["get"])}</span>'

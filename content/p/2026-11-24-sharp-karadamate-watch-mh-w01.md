@@ -10,6 +10,7 @@ thumbnail: https://jp.sharp/wearable/common/images/watch_color_gold_1.png
 thumbnail_credit: シャープ 公式サイト
 price: "59,400円(シャープ公式の COCORO STORE、税込、掲載時点)"
 status: japan
+get: "国内で発売中。COCORO STORE で59,400円(税込)、家電量販店や通信会社でも買える(掲載時点)"
 jp:
   giteki: {mark: ok, text: "国内正規品(シャープ)。技適番号は未確認"}
   buy: {mark: ok, text: "7月9日発売。COCORO STORE・家電量販店・通信会社などで販売"}

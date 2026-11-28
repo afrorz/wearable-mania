@@ -16,6 +16,7 @@ clip:
   source: "https://www.youtube.com/watch?v=tAIhp9hia90"
 price: "99,800円から(日本の公式ストア、税込、掲載時点)"
 status: japan
+get: "国内で発売中。99,800円から(税込)で、ビックカメラ・ヨドバシカメラ・日本の公式ストアで買える(掲載時点)"
 jp:
   giteki: {mark: ok, text: "技適あり(番号 220-J10312、Even G2)"}
   buy: {mark: ok, text: "ビックカメラ・ヨドバシカメラ・日本の公式ストアで正規に販売(掲載時点)"}

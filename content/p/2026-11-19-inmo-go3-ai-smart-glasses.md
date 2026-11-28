@@ -16,6 +16,7 @@ clip:
 thumbnail_credit: INMO 公式サイト
 price: "99,800円(税込、国内の希望小売価格、掲載時点)"
 status: japan
+get: "国内で発売中。希望小売価格99,800円(税込)で、Amazon や家電量販店で買える(掲載時点)"
 jp:
   giteki: {mark: ok, text: "技適あり(番号 210-262076)"}
   buy: {mark: ok, text: "イノモ日本が国内で発売。Amazon・家電量販店で扱う(掲載時点)"}

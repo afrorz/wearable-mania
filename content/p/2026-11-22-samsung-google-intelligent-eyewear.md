@@ -11,6 +11,7 @@ thumbnail_crop: [220, 140, 1460, 1152, 2048]   # 製品写真のうち、カメ�
 thumbnail_credit: Samsung Newsroom
 price: "395ドルから(Warby Parker)、449〜489ドル(Gentle Monster)。米国、掲載時点"
 status: overseas
+get: "12月10日に米国と韓国で発売。米国では Warby Parker が395ドルから、Gentle Monster が449〜489ドル(掲載時点)"
 jp:
   giteki: {mark: q, text: "基準の型番 GGS002 は総務省の検索では見つからない(掲載時点)"}
   buy: {mark: ng, text: "発売は米国と韓国だけ。日本での発売は案内されていない(掲載時点)"}

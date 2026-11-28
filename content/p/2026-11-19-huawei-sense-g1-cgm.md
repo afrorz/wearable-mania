@@ -11,6 +11,7 @@ thumbnail: /img/huawei-sense-g1-cgm/thumb.jpg   # 公式ストアの画像(中�
 thumbnail_credit: 华为商城(VMALL)
 price: "299元(センサー1本、中国の公式ストア、2027年1月31日までの限定価格。定価は329元、掲載時点)"
 status: china-only
+get: "中国の公式ストア VMALL で予約受付中、12月11日発売。センサー1本299元(2027年1月31日までの限定価格、定価329元)"
 jp:
   giteki: {mark: q, text: "型番 MAC-B10 は総務省の検索で見つからない(掲載時点)。Bluetooth を使う"}
   buy: {mark: q, text: "Huawei Japan からの国内発売の案内は見当たらない(掲載時点)"}

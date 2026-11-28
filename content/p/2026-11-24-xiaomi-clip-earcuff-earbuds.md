@@ -11,6 +11,7 @@ thumbnail_crop: [530, 70, 1070, 520, 1200]   # 白い地の右にある左右の
 thumbnail_credit: Xiaomi 公式サイト(日本)
 price: "19,800円(市場想定価格、税込、掲載時点)。12月7日までは早割で17,800円"
 status: japan
+get: "11月27日から国内で発売。19,800円(税込)で、12月7日までは早割の17,800円。Xiaomi Store・Amazon・楽天・Yahoo!ショッピングで買える"
 jp:
   giteki: {mark: ok, text: "シャオミの日本法人が国内で正規に販売。技適番号は未確認"}
   buy: {mark: ok, text: "11月27日から Xiaomi Store・公式サイト・Amazon・楽天・Yahoo!ショッピングで販売"}
