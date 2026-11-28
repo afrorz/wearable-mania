@@ -36,6 +36,9 @@ alternatives:
   - name: "Even G2"
     why: "国内で買える、レンズに文字を映すメガネ。36gでカメラが無く、度付きにもできる。99,800円から(掲載時点)"
     query: "Even G2 スマートグラス"
+    image: https://cdn.sanity.io/images/wfyhg2qw/production/61c07b2f89213df371a996bb67a9e53ecd321470-2190x2190.jpg
+    image_credit: "Even Realities 公式サイト"
+    image_crop: [78, 236, 2108, 1928, 2190]
 sources:
   - title: "Raven Prism"
     url: "https://raven.computer/"

@@ -360,7 +360,18 @@ def article(p: dict) -> str:
         specs += '<p class="note">メーカー公式と出典の記事にある数字だけを載せています。</p>'
     buy = ""
     if (p.get("stores") or {}).get("query"):
-        buy = f'<h2>買えるところ</h2>{buy_buttons(p["stores"]["query"])}'
+        # 買うボタンの横にもその製品の画像を出す(2026-11-28 本人「アフィリエイトの項目に商品画像がない」)。
+        # stores.image が無ければ記事のサムネイル(と thumbnail_crop)を使う
+        st = p["stores"]
+        mk, md = p.get("maker", ""), p.get("model", "")
+        own = {"name": md if mk.lower() in md.lower() else f"{mk} {md}".strip(),
+               "image": st.get("image") or p.get("thumbnail"),
+               "image_crop": st.get("image_crop") if st.get("image") else p.get("thumbnail_crop"),
+               "image_credit": st.get("image_credit") if st.get("image") else p.get("thumbnail_credit", "")}
+        buy = ('<h2>買えるところ</h2>'
+               f'<div class="alt own{" has-im" if own["image"] else ""}">' + alt_image(own) +
+               f'<div class="at"><b>{E(own["name"])}</b>' + (f'<p>{E(p["price"])}</p>' if p.get("price") else "") +
+               buy_buttons(st["query"]) + "</div></div>")
     alts = ""
     if p.get("alternatives"):
         alts = "<h2>日本で買える代わり</h2>" + "".join(

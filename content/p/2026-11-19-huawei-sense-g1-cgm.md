@@ -44,6 +44,8 @@ alternatives:
     image_credit: HUAWEI 日本 公式サイト
   - name: "FreeStyleリブレ 2(アボット)"
     why: "国内で出ている持続グルコース測定器。腕のセンサーの値をスマホで見る。使い方は医療機関で相談する。"
+    image: /img/huawei-sense-g1-cgm/libre.webp
+    image_credit: "アボット 公式サイト(日本)"
 sources:
   - title: "华为维感 G1 智能健康监测设备 持续葡萄糖监测系统"
     url: "https://item.vmall.com/product/comdetail/index.html?prdId=10086919647144"

@@ -143,6 +143,7 @@ figure.shot .cropbox{background:#fff;max-width:520px;margin:0 auto}
 .alt{padding:14px 16px;margin:10px 0;border-radius:20px;background:var(--glass);border:1px solid var(--edge)}
 .alt b{display:block}.alt p{margin:2px 0 8px;font-size:14px;color:var(--sub)}
 .alt .buy a{background:#fff;color:var(--ink);padding:7px;font-size:13px}
+.alt.own .buy a{background:var(--ink);color:#fff}
 .alt.has-im{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:start}
 .alt .aim{display:flex;flex-direction:column;gap:4px}
 .alt .aim img{width:140px;height:140px;object-fit:contain;background:#fff;border-radius:16px;padding:6px}

@@ -35,6 +35,8 @@ alternatives:
   - name: "アルパインスターズ TECH-AIR 3 v2"
     why: "国内の代理店(岡田商事)が扱う電子式のエアバッグベスト。バイクとはつながず、服の内側にも外側にも着られる。9万6690円"
     query: "アルパインスターズ TECH-AIR 3"
+    image: "https://gb.alpinestars.com/cdn/shop/files/6505025-10-fr_tech-air-3-v2_1_66a575f1-c1e9-4d60-90a0-ac383c4274e8.png?v=1777070758&width=600"
+    image_credit: "Alpinestars 公式サイト"
 sources:
   - title: "SMART GO - MOTORCYCLE AIRBAG VEST"
     url: "https://www.dainese.com/fi/en/smart-go---motorcycle-airbag-vest-201D400022001.html"
