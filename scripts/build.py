@@ -334,12 +334,23 @@ def article(p: dict) -> str:
     elif p.get("thumbnail"):
         hero = (f'<div class="hero"><div{crop_box(p)}><img src="{E(p["thumbnail"])}" alt="{E(p.get("model") or p["title"])}"{focus(p)} referrerpolicy="no-referrer"></div></div>'
                 f'<div class="credit">画像: {E(p.get("thumbnail_credit", ""))}</div>')
-    rows = "".join(
-        f'<tr><td>{label}</td><td><span class="mk {p["jp"][k]["mark"]}">{JUDGE[p["jp"][k]["mark"]]}</span>{E(str(p["jp"][k]["text"]))}</td></tr>'
-        for k, label in JP_ROWS if p["jp"].get(k))
+    # 一覧のカードのバッジと同じ6項目を同じ順で出す。書いていない項目(健康・決済)は「機能なし」の行にする
+    # (2026-11-28 本人「カードは6つなのに記事には4つしか出てない」)
+    NO_FEATURE = {"health": "この製品には健康の機能が無い", "pay": "この製品には決済の機能が無い"}
+    def jp_row(k: str, label: str) -> str:
+        v = p["jp"].get(k) or {"mark": "none", "text": NO_FEATURE.get(k, "")}
+        return f'<tr><td>{label}</td><td><span class="mk {v["mark"]}">{JUDGE[v["mark"]]}</span>{E(str(v["text"]))}</td></tr>'
+    rows = "".join(jp_row(k, label) for k, label in JP_ROWS)
     verdict = f'<div class="verdict">結論: {E(p["jp"]["verdict"])}</div>' if p["jp"].get("verdict") else ""
-    jp = (f'<div class="jp"><div class="jp-h"><b>日本で使える？</b><span class="mono">{p["modified"].replace("-", ".")} 時点</span></div>'
-          f'{meter(p)}<table>{rows}</table>{verdict}</div>')
+    jp = (f'<div class="jp" id="jp"><div class="jp-h"><div><b class="jc">JAPAN CHECK</b><small>日本で使うときの6項目(技適・販売・アプリ・健康・決済・言語)</small></div><span class="mono">{p["modified"].replace("-", ".")} 時点</span></div>'
+          f'<table>{rows}</table>{verdict}</div>')
+    # get: があれば、頭は「手に入れ方」の1行だけにして、「日本で使える？」の欄は本文のあとへ下げる
+    # (2026-11-28 本人「冒頭でいきなり買えないと書いてあると読者はどう思うか」。まず Orrorin の1本で試す)
+    get, top_jp, after_jp = "", jp, ""
+    if p.get("get"):
+        get = (f'<div class="get"><b>手に入れ方</b><span>{E(p["get"])}</span>'
+               f'<a href="#jp">JAPAN CHECK ↓</a></div>')
+        top_jp, after_jp = "", jp
     specs = ""
     sp = list(p.get("specs") or [])
     if p.get("price"):
@@ -363,7 +374,7 @@ def article(p: dict) -> str:
         f'<li><a href="{E(s["url"])}" target="_blank" rel="noopener">{E(s["title"])}</a>({E(s.get("publisher", ""))})</li>' for s in p["sources"]) + "</ul>"
     return (f'<article><div class="crumb"><a href="/">ホーム</a> › <a href="/part/{part["slug"]}/">{E(part["name"])}</a></div>'
             f'<h1>{E(p["title"])}</h1><p class="meta mono">{p["date"].replace("-", ".")} 公開' + (f'・{p["modified"]} 更新' if p["modified"] != p["date"] else "") +
-            f'</p>{hero}{jp}<div class="body">{p["body_html"]}</div>{specs}{buy}{alts}{ad}{src}</article>')
+            f'</p>{hero}{get}{top_jp}<div class="body">{p["body_html"]}</div>{after_jp}{specs}{buy}{alts}{ad}{src}</article>')
 
 
 def related(p: dict, posts: list[dict], n: int = 4) -> str:
