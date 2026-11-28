@@ -425,7 +425,7 @@ def main() -> None:
     (OUT / "CNAME").write_text(urllib.parse.urlparse(BASE).netloc + "\n", encoding="utf-8")
 
     home = ('<section class="intro"><h1><span class="eb mono">Wearable Mania · ウェアラブルガジェット専門</span>wear<b>able</b> future.</h1>'
-            '<p>腕・指・顔・耳につける新しいガジェットを1つずつ。どれも<b>技適</b>と<b>日本で使えない機能</b>まで確かめています。</p></section>'
+            '<p><span>腕・指・顔・耳につける新しいガジェットを1つずつ。</span><span>どれも<b>技適</b>と<b>日本で使えない機能</b>まで確かめています。</span></p></section>'
             + grid(home_order(posts), feature_first=True) + '<h2 class="sec">部位で<b>探す</b></h2>' + parts_links())
     write("/", page(SITE["title"], home, desc=SITE["description"], path="/",
                     jsonld={"@context": "https://schema.org", "@type": "WebSite", "name": SITE["title"], "url": BASE + "/"}))

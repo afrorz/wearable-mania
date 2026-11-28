@@ -38,7 +38,8 @@ header nav a.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(14,27
 .intro h1 b{font-weight:800}
 .intro h1.small{font-size:clamp(36px,5vw,56px)}
 .intro .eb{display:block;margin:0 0 10px;letter-spacing:.12em}
-.intro p{margin:0;max-width:340px;font-size:13px;color:var(--sub);line-height:1.7}
+.intro p span{display:inline-block}  /* 文の途中で折り返さず、文の切れ目で改行する(2026-11-28 本人「改行位置が変」) */
+.intro p{margin:0;max-width:360px;font-size:13px;color:var(--sub);line-height:1.7}
 .intro p b{color:var(--ink)}
 
 /* 一覧 */
