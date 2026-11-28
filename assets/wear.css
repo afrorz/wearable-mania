@@ -53,6 +53,7 @@ header nav a.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(14,27
 .card .tx{padding:10px 14px 14px;display:flex;flex-direction:column;gap:7px;flex:1}
 .card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .card h2,.card h3{font:700 14.5px/1.55 "Noto Sans JP";margin:0;flex:1}
+.card .top .mono{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}  /* 「耳 · 11.24」を2行に割らない(2026-11-28) */
 .st{flex:none;font:700 10.5px "Noto Sans JP";padding:2px 8px;border-radius:999px;background:#fff}
 .st.japan{color:var(--okt)}.st.away{color:var(--qt)}
 /* 一覧のカードの「日本で使える？」: 3列×2行のバッジ。色の点＋項目名(2026-11-26 本人が3案から「点と文字」を選び、バッジにして幅いっぱいに並べた) */
@@ -174,6 +175,7 @@ footer.site a{color:var(--sub);margin-right:14px}
   .grid{gap:10px}
   .card .tx{padding:8px 10px 12px}
   .card h3{font-size:13px}
+  .card .top{gap:4px}.card .top .mono{letter-spacing:0}.st{padding:2px 6px;font-size:10px}
   .cells{gap:4px}.cl{gap:4px;font-size:10px;letter-spacing:-.02em}.cl::before{width:6px;height:6px;box-shadow:none!important}
   .card.feat{min-height:300px}
   .card.feat .tx{padding:60px 14px 14px}

@@ -1,7 +1,7 @@
 # Wearable Mania
 
 腕・指・顔・耳などにつけるウェアラブルガジェットの新製品を、1記事1製品で紹介するサイト(https://wearable.gadgetterminal.com)。
-2026-11-19 に本人と決めて始めた。Gadget Terminal(`media\GadgetTerminal`)・充電沼(`media\TapMania`)の姉妹サイト。運営は Star Platinum LLC。収益は紹介料(もしも経由の楽天・Amazon・Yahoo!ショッピング)。
+2026-11-19 に本人と決めて始めた。Gadget Terminal(`media\GadgetTerminal`)・充電沼(`media\ChargeMania`)の姉妹サイト。運営は Star Platinum LLC。収益は紹介料(もしも経由の楽天・Amazon・Yahoo!ショッピング)。
 
 ```
 content/p/*.md(1記事1製品) → python scripts/build.py → public/ → git push で GitHub Pages に公開
@@ -22,10 +22,12 @@ content/p/*.md(1記事1製品) → python scripts/build.py → public/ → git p
 
 ## 見た目(2026-11-19 「ガラス」に作り直し)
 
+- **見た目を直す・ページや部品を足すときは、先に `docs/DESIGN.md` を読む**(手本・やらないこと・3案と別の目の採点での確かめ方。2026-11-28 本人「作っておこうか」)
+
 - 本人が3つの方向(暗い地の計器風・ガラス・巨大文字が流れるモーション)から**ガラス**を選んだ。明るい地 `#EEF3F6` に緑・青・薄紫の光がゆっくり流れ、ヘッダー・カード・「日本で使える？」の欄はすりガラスの板。色は `assets/wear.css` の先頭
-- **トップの大きな面は置かない**(本人「スクロールするとすぐに楽しそうなガジェットがたくさん並んでるほうが直帰率が下がる」)。頭は1行の「wearable future.」の帯だけで、すぐ一覧。最新の1本だけ2列×2段で6項目の札、ほかは6本の色の線
+- **トップの大きな面は置かない**(本人「スクロールするとすぐに楽しそうなガジェットがたくさん並んでるほうが直帰率が下がる」)。頭は1行の「wearable future.」の帯だけで、すぐ一覧。一番大きいカードだけ6項目の札(項目＋答え)。ほかのカードは6項目を出さず、右上の札(国内で買える・中国だけ・海外だけ)1つ(2026-11-28 本人 A案。色の点だけの札は意味が伝わらず、スマホで詰まっていた)
 - 6項目の色: 緑=使える・黄=未確認・赤=使えない・灰=機能なし
-- ロゴは W と M に緑の帯が編み込まれたマーク(本人が Gemini で作った `assets/brand/wm-mark-gemini.jpg`)＋ Lexend の文字(本人が10案から9番を選んだ)。マーク・ファビコン・共有用の画像は `python scripts/make_brand_images.py` で作り直せる
+- ロゴは W と M にオレンジの帯が編み込まれたマーク(本人が Gemini で作った `assets/brand/wm-mark-gemini.jpg`。2026-11-23 に本人が帯を緑からオレンジに変えた。前の緑は `wm-mark-gemini-green.jpg`)＋ Lexend の文字(本人が10案から9番を選んだ)。マーク・ファビコン・共有用の画像は `python scripts/make_brand_images.py` で作り直せる
 - 書体: 英字 Lexend(200 と 800 を混ぜる)、本文 Noto Sans JP、ラベル JetBrains Mono
 - スマホ(375px)で横にはみ出さないこと。見本は `mock/`(git には入れない)
 

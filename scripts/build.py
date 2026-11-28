@@ -292,7 +292,8 @@ def card(p: dict, feat: bool = False) -> str:
     if feat and p.get("clip"):
         img = clip_tag(p) + f'<span class="vcredit">映像: {E(p["clip"]["credit"])}</span>'
     st = "japan" if p["status"] == "japan" else "away"
-    judge = chips(p) if feat else cells(p)
+    # 小さいカードには6項目の札を出さない(2026-11-28 本人 A案。答えは右上の札1つで足り、詳しくは記事の JAPAN CHECK)
+    judge = chips(p) if feat else ""
     tag = "h2" if feat else "h3"
     return (f'<a class="card{" feat" if feat else ""}" href="/p/{p["slug"]}/">' + ('<span class="new">NEW</span>' if feat and not p.get("pinned") else "") +
             f'<div class="im">{img}</div><div class="tx"><div class="top"><span class="mono">{E(PART[p["part"]]["name"])} · {p["date"][5:].replace("-", ".")}</span>'
