@@ -17,6 +17,7 @@ content/p/*.md(1記事1製品) → python scripts/build.py → public/ → git p
 - 数字は公式と出典にある物だけ。円に換算しない。「技適なし」「違法」と断定しない(見つからなければ「未確認」)
 - 実機は使っていない。「レビュー」と名乗らない
 - 本数は週3本まで
+- **「日本で買えるか」と技適は、予定タスク `wearable-availability-check` が毎週日曜6時に全記事を確かめ直し、変わっていればそのまま公開する**(2026-11-28 本人 B案)。手順は `docs/AVAILABILITY.md`。変化が無ければ `checked:` だけ進める
 - もしもの GT・充電沼の a_id を貼らない。このサイトを新しく登録して、提携が通ったら `config/site.yaml` の `affiliate:` に入れる
 - 日本語版 GT・充電沼のファイルは変更しない(GT の `scripts/giteki.py` は読む・動かすだけ)
 

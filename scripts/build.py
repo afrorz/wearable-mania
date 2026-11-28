@@ -120,6 +120,8 @@ def load_posts() -> list[dict]:
             fail(f"{f.name}: 感嘆符を使っている")
         fm["date"] = str(fm["date"])
         fm["modified"] = str(fm.get("modified") or fm["date"])
+        # checked: 週1の点検(wearable-availability-check)で販売・技適を確かめ直した日。変化が無ければ modified は動かさず、ここだけ進める
+        fm["checked"] = str(fm.get("checked") or fm["modified"])
         fm["body_html"] = figures(markdown.markdown(m.group(2), extensions=["tables"]))
         posts.append(fm)
     slugs = [p["slug"] for p in posts]
@@ -343,7 +345,7 @@ def article(p: dict) -> str:
         return f'<tr><td>{label}</td><td><span class="mk {v["mark"]}">{JUDGE[v["mark"]]}</span>{E(str(v["text"]))}</td></tr>'
     rows = "".join(jp_row(k, label) for k, label in JP_ROWS)
     verdict = f'<div class="verdict">結論: {E(p["jp"]["verdict"])}</div>' if p["jp"].get("verdict") else ""
-    jp = (f'<div class="jp" id="jp"><div class="jp-h"><div><b class="jc">JAPAN CHECK</b><small>日本で使うときの6項目(技適・販売・アプリ・健康・決済・言語)</small></div><span class="mono">{p["modified"].replace("-", ".")} 時点</span></div>'
+    jp = (f'<div class="jp" id="jp"><div class="jp-h"><div><b class="jc">JAPAN CHECK</b><small>日本で使うときの6項目(技適・販売・アプリ・健康・決済・言語)</small></div><span class="mono">{max(p["checked"], p["modified"]).replace("-", ".")} 時点</span></div>'
           f'<table>{rows}</table>{verdict}</div>')
     # 頭は「手に入れ方」(get:)の1行だけにして、JAPAN CHECK の欄は本文のあとへ下げる
     # (2026-11-28 本人「冒頭でいきなり買えないと書いてあると読者はどう思うか」。Orrorin で試し、同じ日に全記事へ)
